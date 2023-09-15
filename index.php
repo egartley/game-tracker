@@ -1,27 +1,141 @@
 <!DOCTYPE html>
+<html>
+
 <head>
+    <title>Game Tracker</title>
     <?php
-        require_once 'includes/core/min-header.php';
-        require_once 'includes/html-builder/toolbar.php';
-        get_stylesheet("toolbar.css");
+        require_once 'includes/min-header.php'
     ?>
-    <title>Dashboard</title>
 </head>
+
 <body>
-<?php
-    echo get_generic_toolbar_html("Dashboard");
-?>
-<div class="outter">
-    <div class="block-container">
-        <div class="base-dialog-modal">
-            <div class="dialog-title">
-                <span>All Pages</span>
+    <div class="content">
+        <div class="page-title">
+            <span>Game Tracker</span>
+        </div>
+        <div class="game-list unified-container compact">
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 1</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
             </div>
-            <div class="dialog-content">
-                <div><p>Pages list html blah blah blah</p></div>
-                <button id="makenewpage">Make New</button>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 2</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
+            </div>
+            <div class="game-listing compact">
+                <div class="game-icon"></div>
+                <div class="game-details">
+                    <div class="game-title">Game Title 3</div>
+                    <div class="rating">[X] [X] [X] [X] [X]</div>
+                    <div class="subtext">20XX, Platform</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
+
+</html>
