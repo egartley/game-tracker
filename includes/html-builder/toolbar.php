@@ -2,7 +2,7 @@
 
 function get_profile_chooser_html()
 {
-    return "<div class=\"profile-chooser static-icon\"><span id=\"name\">" . $_SESSION["user"]["username"] . "</span><span id=\"icon\"></span></div>";
+    return "<div class=\"profile-chooser static-icon\"><span id=\"name\">USER</span><span id=\"icon\"></span></div>";
 }
 
 function get_editing_toolbar_html()
