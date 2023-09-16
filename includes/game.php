@@ -9,8 +9,11 @@ class Game
     public $rating = 0.0;
     public $iconid = 0;
     public $playthroughs = 0;
+    public $hours = 0;
     public $hundo = false;
     public $plat = false;
+    public $dlc = false;
+    public $physical = false;
 
     function __construct($title, $year, $platform, $rating, $iconid)
     {
@@ -34,7 +37,7 @@ class Game
         if ($empties > 0) {
             $content = $content . str_repeat('<img src="/resources/png/se.png">', $empties);
         }
-        
+
         return $content;
     }
 }
