@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
     height: 100%
 }
 
@@ -18,8 +19,7 @@ div.content {
 }
 
 div.page-title {
-    font-size: 32px;
-    margin-bottom: 12px
+    font-size: 32px
 }
 
 div.unified-container {
@@ -28,7 +28,7 @@ div.unified-container {
     border-width: 1px;
     border-radius: 8px;
     box-shadow: 0 0 2px lightgray;
-    background-color: #fafafa;
+    background-color: #fafafa
 }
 
 div.game-list,
@@ -38,11 +38,17 @@ div.game-details {
 }
 
 div.game-list {
-    max-width: 800px
+    max-width: 800px;
+    margin: 12px 0
 }
 
 div.game-list.compact {
     flex-direction: column
+}
+
+div.game-listing:hover {
+    background-color: #f2f2f2;
+    cursor: pointer
 }
 
 div.game-listing.compact {
@@ -58,8 +64,7 @@ div.game-listing.compact:not(:last-child) {
 div.game-icon {
     width: 72px;
     height: 72px;
-    margin-right: 8px;
-    background-color: grey
+    margin-right: 8px
 }
 
 div.game-details {
@@ -71,3 +76,15 @@ div.game-title {
     font-size: 18px
 }
 
+div.rating {
+    margin: 4px 0
+}
+
+div.rating>img {
+    width: 16px;
+    height: 16px
+}
+
+div.rating>img:not(:last-child) {
+    margin-right: 2px
+}
