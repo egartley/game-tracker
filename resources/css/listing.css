@@ -5,16 +5,16 @@ div.game-details {
 }
 
 div.game-list {
-    max-width: 800px;
     margin: 12px 0
 }
 
 div.game-list.compact {
+    max-width: 800px;
     flex-direction: column
 }
 
 div.game-listing:hover {
-    background-color: #f2f2f2;
+    background-color: #eee;
     cursor: pointer
 }
 
@@ -54,4 +54,44 @@ div.rating>img {
 
 div.rating>img:not(:last-child) {
     margin-right: 2px
+}
+
+table.csv-table {
+    width: 100%;
+    border-spacing: 0
+}
+
+table.csv-table tr:nth-child(even):not(:first-child) {
+    background-color: #eee
+}
+
+table.csv-table th,
+table.csv-table td {
+    padding: 6px
+}
+
+table.csv-table th {
+    text-align: left
+}
+
+table.csv-table th:not(:last-child) {
+    border-color: lightgray;
+    border-style: solid;
+    border-width: 0 1px 0 0
+}
+
+table.csv-table td {
+    font-size: 14px;
+    border-color: lightgray;
+    border-style: solid;
+    border-width: 1px 1px 0 0
+}
+
+table.csv-table td:last-child {
+    border-width: 1px 0 0 0
+}
+
+table.csv-table td.csv-icon > img {
+    width: 32px;
+    height: 32px
 }

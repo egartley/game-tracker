@@ -27,14 +27,10 @@
             </div>
         </div>
         <div class="game-list unified-container csv">
-            <div class="game-listing csv">
-                <div class="game-icon"><img src="/resources/png/default-icon.png"></div>
-                <div class="game-details">
-                    <div class="game-title">Game Title</div>
-                    <div class="rating"><img src="/resources/png/sf.png"><img src="/resources/png/sf.png"><img src="/resources/png/sf.png"><img src="/resources/png/sh.png"><img src="/resources/png/se.png"></div>
-                    <div class="subtext">2014, PlayStation 4</div>
-                </div>
-            </div>
+            <?php
+                require_once '../includes/list-builder.php';
+                get_listing_html("csv");
+            ?>
         </div>
     </div>
 </body>

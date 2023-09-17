@@ -15,11 +15,12 @@ class Game
     public $dlc = false;
     public $physical = false;
 
-    function __construct($title, $year, $platform, $rating, $iconid)
+    function __construct($title, $year, $platform, $company, $rating, $iconid)
     {
         $this->title = $title;
         $this->year = $year;
         $this->platform = $platform;
+        $this->company = $company;
         $this->rating = $rating;
         $this->iconid = $iconid;
     }
