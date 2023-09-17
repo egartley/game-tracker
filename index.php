@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>Game Tracker</title>
     <?php
         require_once 'includes/header.php';
         get_header();
+        get_stylesheet("listing.css");
     ?>
 </head>
 
