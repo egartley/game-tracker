@@ -1,5 +1,10 @@
 <?php
 
+function get_script($script)
+{
+    echo '<script src="/resources/js/' . $script . '"></script>';
+}
+
 function get_stylesheet($sheet)
 {
     echo '<link href="/resources/css/' . $sheet . '" rel="stylesheet" type="text/css">';
@@ -17,5 +22,6 @@ function get_header()
 <link href="/resources/ico/favicon.ico" rel="icon">
 <link href="/resources/ico/favicon.ico" rel="shortcut icon" type="images/x-icon">';
 
+    get_script("jquery.js");
     get_stylesheet('min.css');
 }

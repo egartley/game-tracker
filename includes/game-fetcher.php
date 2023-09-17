@@ -29,8 +29,8 @@ function get_all_games()
         $platform = $row["platform"];
         $company = $row["company"];
         $rating = $row["rating"];
-        $iconid = $row["id"];
-        $game = new Game($title, $year, $platform, $company, $rating, $iconid);
+        $game = new Game($title, $year, $platform, $company, $rating);
+        $game->iconid = $row["id"];
         $game->hours = $row["hours"];
         $game->playthroughs = $row["playthroughs"];
         $game->hundo = $row["hundo"] == 1;

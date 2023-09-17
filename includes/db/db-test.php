@@ -20,9 +20,9 @@ if ($table_result) {
 
 require_once "games-table.php";
 require_once '../game.php';
-$testgame = new Game("Game Title", 2014, "PlayStation 4", "Dev Inc.", 3.5, 200);
-$testgame2 = new Game("Game Title 2", 2018, "PlayStation 4", "Dev Inc.", 3.0, 201);
-$testgame3 = new Game("Game Title 3", 2016, "PlayStation 4", "Dev Inc.", 3.0, 202);
+$testgame = new Game("Game Title", 2014, "PlayStation 4", "Dev Inc.", 3.5);
+$testgame2 = new Game("Game Title 2", 2018, "PlayStation 4", "Dev Inc.", 3.0);
+$testgame3 = new Game("Game Title 3", 2016, "PlayStation 4", "Dev Inc.", 3.0);
 if (add_game($connection, $testgame)) {
     echo "Added test game 1<br><br>";
 } else {
@@ -38,10 +38,12 @@ if (add_game($connection, $testgame3)) {
 } else {
     echo "Error adding test game 3<br><br>";
 }
-if (delete_game($connection, $testgame3)) {
-    echo "Deleted test game 3<br><br>";
-} else {
-    echo "Error deleting test game 3<br><br>";
-}
+#if (delete_game($connection, $testgame3)) {
+    #echo "Deleted test game 3<br><br>";
+#} else {
+    #echo "Error deleting test game 3<br><br>";
+#}
+
+echo $connection->error;
 
 $connection->close();

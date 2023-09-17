@@ -1,0 +1,7 @@
+div.new-game-container {
+    margin-top: 24px
+}
+
+div.input-container:not(:last-child) {
+    margin-bottom: 12px
+}

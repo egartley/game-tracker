@@ -15,14 +15,13 @@ class Game
     public $dlc = false;
     public $physical = false;
 
-    function __construct($title, $year, $platform, $company, $rating, $iconid)
+    function __construct($title, $year, $platform, $company, $rating)
     {
         $this->title = $title;
         $this->year = $year;
         $this->platform = $platform;
         $this->company = $company;
         $this->rating = $rating;
-        $this->iconid = $iconid;
     }
 
     function get_rating_html()
