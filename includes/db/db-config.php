@@ -1,10 +1,5 @@
 <?php
 
-$db_host = "localhost";
-$db_user = "gt-user";
-$db_pass = "testpassword789";
-$db_schema = "gametracker-db";
-
 $games_table_name = "games";
 $icons_table_name = "icons";
 
@@ -22,3 +17,4 @@ plat BOOLEAN NOT NULL DEFAULT 0,
 dlc BOOLEAN NOT NULL DEFAULT 0,
 physical BOOLEAN NOT NULL DEFAULT 0
 ";
+$games_table_columns = "(id, title, year, platform, company, rating, hours, playthroughs, hundo, plat, dlc, physical)";

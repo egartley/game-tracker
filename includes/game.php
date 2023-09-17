@@ -33,10 +33,10 @@ class Game
 
         $content = str_repeat('<img src="/resources/png/sf.png">', $full_stars);
         if ($has_half) {
-            $content = $content . '<img src="/resources/png/sh.png">';
+            $content .= '<img src="/resources/png/sh.png">';
         }
         if ($empties > 0) {
-            $content = $content . str_repeat('<img src="/resources/png/se.png">', $empties);
+            $content .= str_repeat('<img src="/resources/png/se.png">', $empties);
         }
 
         return $content;
