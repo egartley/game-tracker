@@ -1,5 +1,17 @@
 <?php
 
+function verify_games_table($connection)
+{
+    require_once "db-init.php";
+    create_games_table($connection);
+}
+
+function get_games_table_rows($connection)
+{
+    include "db-config.php";
+    return $connection->query("SELECT * FROM " . $games_table_name);
+}
+
 function get_game_exists($connection, $game)
 {
     include "db-config.php";
@@ -16,13 +28,13 @@ function add_game($connection, $game)
         $query .= $game->year . ", '";
         $query .= $game->platform . "', '";
         $query .= $game->company . "', ";
-        $query .=  $game->rating . ", ";
-        $query .=  $game->hours . ", ";
-        $query .=  $game->playthroughs . ", ";
-        $query .=  ($game->hundo ? 1 : 0) . ", ";
-        $query .=  ($game->plat ? 1 : 0) . ", ";
-        $query .=  ($game->dlc ? 1 : 0) . ", ";
-        $query .=  ($game->physical ? 1 : 0) . ")";
+        $query .= $game->rating . ", ";
+        $query .= $game->hours . ", ";
+        $query .= $game->playthroughs . ", ";
+        $query .= ($game->hundo ? 1 : 0) . ", ";
+        $query .= ($game->plat ? 1 : 0) . ", ";
+        $query .= ($game->dlc ? 1 : 0) . ", ";
+        $query .= ($game->physical ? 1 : 0) . ")";
         return $connection->query($query);
     } else {
         return false;

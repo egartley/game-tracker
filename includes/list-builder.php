@@ -39,6 +39,30 @@ function get_compact_listing_html($game)
 function get_listing_html($type)
 {
     $html = "";
+    $all_games = get_all_games();
+    if ($type == "csv") {
+        $html = '<table class="csv-table"><tr>
+            <th>ID</th><th>Title</th><th>Year</th><th>Platform</th><th>Company</th><th>Rating</th>
+            <th>Hours</th><th>Playthroughs</th><th>100%</th><th>Platinum</th><th>DLC</th><th>Physical</th></tr>';
+    }
+
+    foreach ($all_games as $game) {
+        if ($type == "compact") {
+            $html .= get_compact_listing_html($game);
+        } else if ($type == "csv") {
+            $html .= get_csv_listing_html($game);
+        }
+    }
+
+    if ($type == "csv") {
+        $html .= "</table>";
+    }
+    echo $html;
+}
+
+function get_temp_listing_html($type)
+{
+    $html = "";
     $all_games = get_temp_games();
     if ($type == "csv") {
         $html = '<table class="csv-table"><tr>
