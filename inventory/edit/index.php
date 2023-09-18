@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>New Game</title>
+    <title>Edit Game</title>
     <?php
         require_once '../../includes/header.php';
         get_header();
@@ -14,12 +14,12 @@
 <body>
     <div class="content">
         <div class="page-title">
-            <span>New Game</span>
+            <span>Edit Game</span>
         </div>
         <div class="input-outer-container">
             <?php
                 require_once "../../includes/input-builder.php";
-                get_input_html("new");
+                get_input_html("edit");
             ?>
         </div>
     </div>

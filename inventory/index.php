@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="em">
+<html lang="en">
 
 <head>
     <title>Manage Inventory</title>
@@ -30,7 +30,7 @@
         <div class="game-list unified-container csv">
             <?php
                 require_once '../includes/list-builder.php';
-                get_listing_html("csv");
+                get_listing_html("csv", true);
             ?>
         </div>
     </div>

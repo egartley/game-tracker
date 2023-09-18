@@ -4,15 +4,43 @@ require_once 'game.php';
 
 function get_temp_games()
 {
-    $temp_game = new Game("Game Title", 2014, "PlayStation 4", "Dev Inc.", 3.5, 200);
+    $temp_game = new Game('Game Title', 2014, 'PlayStation 4', 'Dev Inc.', 3.5, 200);
 
     return array($temp_game, $temp_game, $temp_game, $temp_game, $temp_game, $temp_game, $temp_game, $temp_game, $temp_game);
 }
 
+function get_game_by_id($id)
+{
+    require_once 'db/db-connection.php';
+    require_once 'db/games-table.php';
+
+    $connection = get_mysql_connection();
+    verify_games_table($connection);
+    $result = get_game_row_by_id($connection, $id);
+    $connection->close();
+    
+    $row = $result->fetch_assoc();
+    $title = $row['title'];
+    $year = $row['year'];
+    $platform = $row['platform'];
+    $company = $row['company'];
+    $rating = $row['rating'];
+    $game = new Game($title, $year, $platform, $company, $rating);
+    $game->iconid = $id;
+    $game->hours = $row['hours'];
+    $game->playthroughs = $row['playthroughs'];
+    $game->hundo = $row['hundo'] == 1;
+    $game->plat = $row['plat'] == 1;
+    $game->dlc = $row['dlc'] == 1;
+    $game->physical = $row['physical'] == 1;
+
+    return $game;
+}
+
 function get_all_games()
 {
-    require_once "db/db-connection.php";
-    require_once "db/games-table.php";
+    require_once 'db/db-connection.php';
+    require_once 'db/games-table.php';
 
     $games = array();
     $connection = get_mysql_connection();
@@ -24,19 +52,19 @@ function get_all_games()
         return $games;
     }
     while ($row = $rows->fetch_assoc()) {
-        $title = $row["title"];
-        $year = $row["year"];
-        $platform = $row["platform"];
-        $company = $row["company"];
-        $rating = $row["rating"];
+        $title = $row['title'];
+        $year = $row['year'];
+        $platform = $row['platform'];
+        $company = $row['company'];
+        $rating = $row['rating'];
         $game = new Game($title, $year, $platform, $company, $rating);
-        $game->iconid = $row["id"];
-        $game->hours = $row["hours"];
-        $game->playthroughs = $row["playthroughs"];
-        $game->hundo = $row["hundo"] == 1;
-        $game->plat = $row["plat"] == 1;
-        $game->dlc = $row["dlc"] == 1;
-        $game->physical = $row["physical"] == 1;
+        $game->iconid = $row['id'];
+        $game->hours = $row['hours'];
+        $game->playthroughs = $row['playthroughs'];
+        $game->hundo = $row['hundo'] == 1;
+        $game->plat = $row['plat'] == 1;
+        $game->dlc = $row['dlc'] == 1;
+        $game->physical = $row['physical'] == 1;
         array_push($games, $game);
     }
 

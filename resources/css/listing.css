@@ -61,7 +61,7 @@ table.csv-table {
     border-spacing: 0
 }
 
-table.csv-table tr:nth-child(even):not(:first-child) {
+table.csv-table tr:nth-child(odd):not(:first-child) {
     background-color: #eee
 }
 
