@@ -26,6 +26,10 @@
             <div class="action-icon"><img src="/resources/png/action-button-import.png"></div>
             <div class="action-text">Import Data</div>
         </div>
+        <div class="action-button action-button-manage-icons unified-container">
+            <div class="action-icon"><img src="/resources/png/action-button-new-icon.png"></div>
+            <div class="action-text">Manage Icons</div>
+        </div>
     </div>
     <div class="game-list unified-container csv">
         <?php

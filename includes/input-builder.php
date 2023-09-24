@@ -1,6 +1,6 @@
 <?php
 
-function get_input_html($type)
+function get_input_html($type): void
 {
     echo '<div class="input-container">
     <label for="title">Title:</label>
@@ -49,6 +49,10 @@ function get_input_html($type)
         <input type="checkbox" id="physical" name="physical">
     </div>
     <div class="input-container">
+        <label for="iconid">Icon ID:</label>
+        <input type="text" id="iconid" name="iconid" maxlength="6">
+    </div>
+    <div class="input-container">
         <button class="submit" inputtype="' . $type . '">Submit</button>
     </div>';
 
@@ -69,6 +73,25 @@ function get_input_html($type)
         <span id="gamedata-plat">' . ($game->plat ? 1 : 0) . '</span>
         <span id="gamedata-dlc">' . ($game->dlc ? 1 : 0) . '</span>
         <span id="gamedata-physical">' . ($game->physical ? 1 : 0) . '</span>
+        <span id="gamedata-iconid">' . $game->iconid . '</span>
         </div>';
     }
+}
+
+function get_icon_input_html($type): void
+{
+    echo '<div class="input-container">
+        <form action="/inventory/icon/upload/index.php" method="post" enctype="multipart/form-data">
+            Select file:
+            <input type="file" name="iconfile" id="iconfile">
+            <input type="submit" value="Upload" name="submit">
+        </form>
+    </div>
+    <div class="input-container">
+        <form action="/inventory/icon/upload/index.php" method="post" enctype="multipart/form-data">
+            Select multiple files (max 20):
+            <input type="file" name="iconfiles[]" id="iconfiles" multiple>
+            <input type="submit" value="Upload" name="submit">
+        </form>
+    </div>';
 }

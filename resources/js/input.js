@@ -33,10 +33,11 @@ $(document).ready(function () {
         const plat = $("input#plat").is(":checked") ? 1 : 0;
         const dlc = $("input#dlc").is(":checked") ? 1 : 0;
         const physical = $("input#physical").is(":checked") ? 1 : 0;
+        const iconid = Number($("input#iconid").eq(0).val()).toString();
         $.post("/inventory/action/index.php", {
             type: type, title: title, year: year, platform: platform,
             company: company, rating: rating, hours: hours, playthroughs: playthroughs, hundo: hundo, plat: plat,
-            dlc: dlc, physical: physical, id: type === "edit" ? get_param_id() : ""
+            dlc: dlc, physical: physical, iconid: iconid, id: type === "edit" ? get_param_id() : ""
         }).done(function () {
             window.location = "/inventory"
         })
@@ -54,6 +55,7 @@ $(document).ready(function () {
         $("input#plat").prop("checked", $("span#gamedata-plat").html() === 1)
         $("input#dlc").prop("checked", $("span#gamedata-dlc").html() === 1)
         $("input#physical").prop("checked", $("span#gamedata-physical").html() === 1)
+        $("input#iconid").val($("span#gamedata-iconid").html())
         $("button.delete").on("click", function () {
             $.post("/inventory/action/index.php", {
                 type: "delete", id: sanitize_num(get_url_params().get("id"))

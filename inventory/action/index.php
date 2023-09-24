@@ -29,7 +29,7 @@ function sanitize_csv_num($data): float
 }
 
 function build_game_object($title, $year, $platform, $company, $rating, $hours, $playthroughs,
-                           $hundo, $plat, $dlc, $physical): Game
+                           $hundo, $plat, $dlc, $physical, $iconid): Game
 {
     $game = new Game($title, $year, $platform, $company, $rating);
     $game->hours = $hours;
@@ -38,6 +38,7 @@ function build_game_object($title, $year, $platform, $company, $rating, $hours, 
     $game->plat = $plat;
     $game->dlc = $dlc;
     $game->physical = $physical;
+    $game->iconid = $iconid;
     return $game;
 }
 
@@ -54,9 +55,10 @@ function get_post_game(): Game
     $plat = (int)get_sanitized_param_num('plat') === 1;
     $dlc = (int)get_sanitized_param_num('dlc') === 1;
     $physical = (int)get_sanitized_param_num('physical') === 1;
+    $iconid = (int)get_sanitized_param_num('iconid');
 
     return build_game_object($title, $year, $platform, $company, $rating, $hours,
-        $playthroughs, $hundo, $plat, $dlc, $physical);
+        $playthroughs, $hundo, $plat, $dlc, $physical, $iconid);
 }
 
 function get_csv_game($line): Game
@@ -74,7 +76,7 @@ function get_csv_game($line): Game
     $physical = (int)sanitize_csv_num($line[11]) === 1;
 
     return build_game_object($title, $year, $platform, $company, $rating, $hours,
-        $playthroughs, $hundo, $plat, $dlc, $physical);
+        $playthroughs, $hundo, $plat, $dlc, $physical, 0);
 }
 
 if (isset($_POST['type'])) {

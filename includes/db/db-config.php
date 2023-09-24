@@ -15,6 +15,13 @@ playthroughs INT(3) NOT NULL DEFAULT 0,
 hundo BOOLEAN NOT NULL DEFAULT 0,
 plat BOOLEAN NOT NULL DEFAULT 0,
 dlc BOOLEAN NOT NULL DEFAULT 0,
-physical BOOLEAN NOT NULL DEFAULT 0
+physical BOOLEAN NOT NULL DEFAULT 0,
+iconid INT(6) NOT NULL DEFAULT 0
 ";
-$games_table_columns = "(title, year, platform, company, rating, hours, playthroughs, hundo, plat, dlc, physical)";
+$games_table_columns = "(title, year, platform, company, rating, hours, playthroughs, hundo, plat, dlc, physical, iconid)";
+
+$icons_table_schema = "
+id INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+filename VARCHAR(100) NOT NULL DEFAULT ''
+";
+$icons_table_columns = "(filename)";

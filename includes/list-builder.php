@@ -1,15 +1,25 @@
 <?php
 
-require_once 'game-fetcher.php';
+function get_icon_csv_listing_html($icon): string
+{
+    $start = '<tr>';
+    $content = '<td>' . $icon->id . '</td>';
+    $content .= '<td><img class="internal-icon-csv" src="/resources/png/icon/' . $icon->filename . '"></td>';
+    $content .= '<td>' . $icon->filename . '</td>';
+    $content .= '<td><a href="/inventory/icon/delete/?id=' . $icon->id . '">Delete</a></td>';
+    $end = '</tr>';
+
+    return $start . $content . $end;
+}
 
 function get_csv_listing_html($game, $edit_link): string
 {
     $start = '<tr>';
     $content = '<td>';
     if ($edit_link) {
-        $content .= '<a href="/inventory/edit/?id=' . $game->iconid . '">' . $game->iconid . '</a>';
+        $content .= '<a href="/inventory/edit/?id=' . $game->id . '">' . $game->id . '</a>';
     } else {
-        $content .= $game->iconid;
+        $content .= $game->id;
     }
     $content .= '</td><td>' . $game->title . '</td>';
     $content .= '<td>' . $game->year . '</td>';
@@ -22,6 +32,7 @@ function get_csv_listing_html($game, $edit_link): string
     $content .= '<td>' . var_export($game->plat, true) . '</td>';
     $content .= '<td>' . var_export($game->dlc, true) . '</td>';
     $content .= '<td>' . var_export($game->physical, true) . '</td>';
+    $content .= '<td>' . $game->iconid . '</td>';
     $end = '</tr>';
 
     return $start . $content . $end;
@@ -29,8 +40,12 @@ function get_csv_listing_html($game, $edit_link): string
 
 function get_compact_listing_html($game): string
 {
+    $iconfile = 'default-icon.png';
+    if ($game->iconfile !== '') {
+        $iconfile = $game->iconfile;
+    }
     $start = '<div class="game-listing compact">';
-    $content = '<div class="game-icon"><img src="/resources/png/default-icon.png"></div>';
+    $content = '<div class="game-icon"><img src="/resources/png/icon/' . $iconfile . '"></div>';
     $content .= '<div class="game-details"><div class="game-title">';
     $content .= $game->title . '</div><div class="rating">';
     $content .= $game->get_rating_html() . '</div>';
@@ -43,12 +58,14 @@ function get_compact_listing_html($game): string
 
 function get_listing_html($type, $edit_link = false): void
 {
+    require_once 'game-fetcher.php';
     $html = '';
     $all_games = get_all_games();
     if ($type == 'csv') {
         $html = '<table class="csv-table"><tr>
             <th>ID</th><th>Title</th><th>Year</th><th>Platform</th><th>Company</th><th>Rating</th>
-            <th>Hours</th><th>Playthroughs</th><th>100%</th><th>Platinum</th><th>DLC</th><th>Physical</th></tr>';
+            <th>Hours</th><th>Playthroughs</th><th>100%</th><th>Plat</th><th>DLC</th><th>Physical</th>
+            <th>Icon</th></tr>';
     }
 
     foreach ($all_games as $game) {
@@ -65,26 +82,14 @@ function get_listing_html($type, $edit_link = false): void
     echo $html;
 }
 
-function get_temp_listing_html($type): void
+function get_icon_listing_html(): void
 {
-    $html = '';
-    $all_games = get_temp_games();
-    if ($type == 'csv') {
-        $html = '<table class="csv-table"><tr>
-            <th>ID</th><th>Title</th><th>Year</th><th>Platform</th><th>Company</th><th>Rating</th>
-            <th>Hours</th><th>Playthroughs</th><th>100%</th><th>Platinum</th><th>DLC</th><th>Physical</th></tr>';
+    require_once 'icon-fetcher.php';
+    $html = '<table class="csv-table"><tr><th>ID</th><th>Image</th><th>File Name</th><th>Actions</th></tr>';
+    $all_icons = get_all_icons();
+    foreach ($all_icons as $icon) {
+        $html .= get_icon_csv_listing_html($icon);
     }
-
-    foreach ($all_games as $game) {
-        if ($type == 'compact') {
-            $html .= get_compact_listing_html($game);
-        } else if ($type == 'csv') {
-            $html .= get_csv_listing_html($game);
-        }
-    }
-
-    if ($type == 'csv') {
-        $html .= '</table>';
-    }
+    $html .= '</table>';
     echo $html;
 }

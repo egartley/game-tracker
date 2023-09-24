@@ -2,16 +2,21 @@
 
 require_once 'game.php';
 
-function get_temp_games(): array
+function get_icon_filename($connection, $iconid)
 {
-    $temp_game = new Game('Game Title', 2014, 'PlayStation 4', 'Dev Inc.', 3.5, 200);
-    return array($temp_game, $temp_game, $temp_game, $temp_game, $temp_game, $temp_game, $temp_game, $temp_game, $temp_game);
+    require_once 'db/icons-table.php';
+    $row = get_icon_row_by_id($connection, $iconid);
+    if ($row->num_rows == 0) {
+        return '';
+    }
+    return $row->fetch_assoc()['filename'];
 }
 
 function build_game_object($data, $id = -1): Game
 {
     $game = new Game($data['title'], $data['year'], $data['platform'], $data['company'], $data['rating']);
-    $game->iconid = $id === -1 ? $data['id'] : $id;
+    $game->id = $id === -1 ? $data['id'] : $id;
+    $game->iconid = $data['iconid'];
     $game->hours = $data['hours'];
     $game->playthroughs = $data['playthroughs'];
     $game->hundo = $data['hundo'] == 1;
@@ -44,14 +49,16 @@ function get_all_games(): array
     $connection = get_mysql_connection();
     verify_games_table($connection);
     $rows = get_games_table_rows($connection);
-    $connection->close();
 
     if ($rows->num_rows == 0) {
         return $games;
     }
     while ($row = $rows->fetch_assoc()) {
-        $games[] = build_game_object($row);
+        $game = build_game_object($row);
+        $game->iconfile = get_icon_filename($connection, $game->iconid);
+        $games[] = $game;
     }
+    $connection->close();
 
     return $games;
 }

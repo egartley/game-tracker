@@ -39,7 +39,8 @@ function get_game_add_query($connection, $game): string
     $query .= ($game->hundo ? 1 : 0) . ', ';
     $query .= ($game->plat ? 1 : 0) . ', ';
     $query .= ($game->dlc ? 1 : 0) . ', ';
-    $query .= ($game->physical ? 1 : 0) . ');';
+    $query .= ($game->physical ? 1 : 0) . ', ';
+    $query .= $game->iconid . ');';
     return $query;
 }
 
@@ -74,7 +75,8 @@ function edit_game($connection, $game, $id)
         $query .= 'hundo=' . ($game->hundo ? 1 : 0) . ', ';
         $query .= 'plat=' . ($game->plat ? 1 : 0) . ', ';
         $query .= 'dlc=' . ($game->dlc ? 1 : 0) . ', ';
-        $query .= 'physical=' . ($game->physical ? 1 : 0);
+        $query .= 'physical=' . ($game->physical ? 1 : 0) . ', ';
+        $query .= 'iconid=' . $game->iconid;
         $query .= ' WHERE id=' . $id;
         return $connection->query($query);
     } else {

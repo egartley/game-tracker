@@ -7,13 +7,15 @@ class Game
     public string $platform = "";
     public int $year = 0;
     public float $rating = 0.0;
-    public int $iconid = 0;
     public int $playthroughs = 0;
     public int $hours = 0;
     public bool $hundo = false;
     public bool $plat = false;
     public bool $dlc = false;
     public bool $physical = false;
+    public int $iconid = 0;
+    public int $id = 0;
+    public string $iconfile = '';
 
     function __construct($title, $year, $platform, $company, $rating)
     {

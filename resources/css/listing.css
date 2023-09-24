@@ -29,9 +29,12 @@ div.game-listing.compact:not(:last-child) {
 }
 
 div.game-icon {
-    width: 72px;
-    height: 72px;
     margin-right: 8px
+}
+
+div.game-icon > img {
+    width: 72px;
+    height: 72px
 }
 
 div.game-details {
@@ -94,4 +97,8 @@ table.csv-table td:last-child {
 table.csv-table td.csv-icon > img {
     width: 32px;
     height: 32px
+}
+
+img.internal-icon-csv {
+    width: 72px
 }
