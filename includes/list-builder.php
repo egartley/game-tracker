@@ -2,7 +2,7 @@
 
 require_once 'game-fetcher.php';
 
-function get_csv_listing_html($game, $edit_link)
+function get_csv_listing_html($game, $edit_link): string
 {
     $start = '<tr>';
     $content = '<td>';
@@ -27,7 +27,7 @@ function get_csv_listing_html($game, $edit_link)
     return $start . $content . $end;
 }
 
-function get_compact_listing_html($game)
+function get_compact_listing_html($game): string
 {
     $start = '<div class="game-listing compact">';
     $content = '<div class="game-icon"><img src="/resources/png/default-icon.png"></div>';
@@ -41,7 +41,7 @@ function get_compact_listing_html($game)
     return $start . $content . $end;
 }
 
-function get_listing_html($type, $edit_link = false)
+function get_listing_html($type, $edit_link = false): void
 {
     $html = '';
     $all_games = get_all_games();
@@ -65,7 +65,7 @@ function get_listing_html($type, $edit_link = false)
     echo $html;
 }
 
-function get_temp_listing_html($type)
+function get_temp_listing_html($type): void
 {
     $html = '';
     $all_games = get_temp_games();

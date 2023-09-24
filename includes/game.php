@@ -2,18 +2,18 @@
 
 class Game
 {
-    public $title = "";
-    public $company = "";
-    public $platform = "";
-    public $year = 0;
-    public $rating = 0.0;
-    public $iconid = 0;
-    public $playthroughs = 0;
-    public $hours = 0;
-    public $hundo = false;
-    public $plat = false;
-    public $dlc = false;
-    public $physical = false;
+    public string $title = "";
+    public string $company = "";
+    public string $platform = "";
+    public int $year = 0;
+    public float $rating = 0.0;
+    public int $iconid = 0;
+    public int $playthroughs = 0;
+    public int $hours = 0;
+    public bool $hundo = false;
+    public bool $plat = false;
+    public bool $dlc = false;
+    public bool $physical = false;
 
     function __construct($title, $year, $platform, $company, $rating)
     {
@@ -27,7 +27,7 @@ class Game
     function get_rating_html(): string
     {
         $full_stars = intdiv($this->rating, 1);
-        $has_half = $this->rating !== $full_stars;
+        $has_half = $this->rating != (float)$full_stars;
         $empties = 5 - ceil($this->rating);
 
         $content = str_repeat('<img src="/resources/png/sf.png">', $full_stars);
