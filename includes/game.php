@@ -24,7 +24,7 @@ class Game
         $this->rating = $rating;
     }
 
-    function get_rating_html()
+    function get_rating_html(): string
     {
         $full_stars = intdiv($this->rating, 1);
         $has_half = $this->rating !== $full_stars;

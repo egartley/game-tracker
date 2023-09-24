@@ -1,6 +1,6 @@
 <?php
 
-function verify_games_table($connection)
+function verify_games_table($connection): void
 {
     require_once 'db-init.php';
     create_games_table($connection);
@@ -18,14 +18,14 @@ function get_game_row_by_id($connection, $id)
     return $connection->query('SELECT * FROM ' . $games_table_name . ' WHERE id=' . $id . " LIMIT 1");
 }
 
-function get_game_exists($connection, $game)
+function get_game_exists($connection, $game): bool
 {
     include 'db-config.php';
     return $connection->query('SELECT id FROM ' . $games_table_name . " WHERE title=\"" . $game->title
-        . "\" AND year=" . $game->year . " AND platform=\"" . $game->platform . "\"")->num_rows > 0;
+            . "\" AND year=" . $game->year . " AND platform=\"" . $game->platform . "\"")->num_rows > 0;
 }
 
-function get_game_add_query($connection, $game)
+function get_game_add_query($connection, $game): string
 {
     include 'db-config.php';
     $query = 'INSERT INTO ' . $games_table_name . ' ' . $games_table_columns . " VALUES (\"";
@@ -53,14 +53,10 @@ function add_game($connection, $game)
     }
 }
 
-function delete_game($connection, $game)
+function delete_game($connection, $id)
 {
     include 'db-config.php';
-    if (get_game_exists($connection, $game)) {
-        return $connection->query('DELETE FROM ' . $games_table_name . ' WHERE id=' . $game->iconid);
-    } else {
-        return false;
-    }
+    return $connection->query('DELETE FROM ' . $games_table_name . ' WHERE id=' . $id);
 }
 
 function edit_game($connection, $game, $id)

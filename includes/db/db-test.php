@@ -39,9 +39,9 @@ if (add_game($connection, $testgame3)) {
     echo "Error adding test game 3<br><br>";
 }
 #if (delete_game($connection, $testgame3)) {
-    #echo "Deleted test game 3<br><br>";
+#echo "Deleted test game 3<br><br>";
 #} else {
-    #echo "Error deleting test game 3<br><br>";
+#echo "Error deleting test game 3<br><br>";
 #}
 
 echo $connection->error;

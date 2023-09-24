@@ -54,9 +54,9 @@ function get_input_html($type)
 
     if ($type === 'edit' && isset($_GET['id'])) {
         require_once 'game-fetcher.php';
-        $id = (int) preg_replace('/[^0-9]/', '', $_GET['id']);
+        $id = (int)preg_replace('/[^0-9]/', '', $_GET['id']);
         $game = get_game_by_id($id);
-
+        echo '<div class="input-container"><button class="delete">Delete</button></div>';
         echo '<div style="display:none">
         <span id="gamedata-title">' . $game->title . '</span>
         <span id="gamedata-year">' . $game->year . '</span>
