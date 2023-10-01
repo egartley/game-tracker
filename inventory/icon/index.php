@@ -15,11 +15,11 @@
 <body>
 <div class="content">
     <div class="page-title">
-        <span>Manage icons</span>
+        <span>Manage Icons</span>
     </div>
     <div class="action-button-container">
         <div class="action-button action-button-new-icon unified-container">
-            <div class="action-icon"><img src="/resources/png/action-button-new-icon.png"></div>
+            <div class="action-icon"><img src="/resources/png/action-button-new.png"></div>
             <div class="action-text">New Icon</div>
         </div>
     </div>
