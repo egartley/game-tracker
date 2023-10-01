@@ -5,3 +5,15 @@ div.input-outer-container {
 div.input-container:not(:last-child) {
     margin-bottom: 12px
 }
+
+textarea#csvtext {
+    display: block;
+    min-width: 800px;
+    max-width: 800px;
+    min-height: 400px;
+    max-height: 500px
+}
+
+textarea#csvtext button.submit {
+    margin-top: 24px
+}

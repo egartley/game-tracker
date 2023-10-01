@@ -44,7 +44,7 @@ if (isset($_FILES['iconfile'])) {
                 add_icon($connection, $iconfiles['name'][$i]);
             }
         } else {
-            echo '<p>There was an issue with ' . $iconfiles['name'][$i] .'</p>';
+            echo '<p>There was an issue with ' . $iconfiles['name'][$i] . '</p>';
         }
     }
 
