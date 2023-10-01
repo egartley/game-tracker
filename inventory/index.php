@@ -1,17 +1,23 @@
-<!DOCTYPE html>
+<?php
+
+include_once '../includes/auth/check-auth.php';
+if (!$valid_auth) {
+    exit();
+}
+
+echo '<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Manage Inventory</title>
-    <?php
-    require_once '../includes/header.php';
-    get_header();
-    get_stylesheet("listing.css");
-    get_stylesheet("inventory.css");
-    get_script("inventory.js");
-    ?>
-</head>
+    <title>Manage Inventory</title>';
 
+require_once "../includes/header.php";
+get_header();
+get_stylesheet("listing.css");
+get_stylesheet("inventory.css");
+get_script("inventory.js");
+
+echo '
+</head>
 <body>
 <div class="content">
     <div class="page-title">
@@ -31,13 +37,13 @@
             <div class="action-text">Manage Icons</div>
         </div>
     </div>
-    <div class="game-list unified-container csv">
-        <?php
-        require_once '../includes/list-builder.php';
-        get_listing_html("csv", true);
-        ?>
+    <div class="game-list unified-container csv">';
+
+require_once '../includes/list-builder.php';
+get_listing_html("csv", true);
+
+echo '
     </div>
 </div>
 </body>
-
-</html>
+</html>';

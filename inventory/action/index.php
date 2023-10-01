@@ -79,6 +79,11 @@ function get_csv_game($line): Game
         $playthroughs, $hundo, $plat, $dlc, $physical, 0);
 }
 
+include_once '../../includes/auth/check-auth.php';
+if (!$valid_auth) {
+    exit();
+}
+
 if (isset($_POST['type'])) {
     $type = $_POST['type'];
 

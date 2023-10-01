@@ -1,5 +1,10 @@
 <?php
 
+include_once '../../../includes/auth/check-auth.php';
+if (!$valid_auth) {
+    exit();
+}
+
 if (isset($_FILES['iconfile'])) {
     // Adopted from https://www.w3schools.com/php/php_file_upload.asp
     $uploaded_file = $_FILES['iconfile'];
