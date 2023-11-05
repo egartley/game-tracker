@@ -5,6 +5,7 @@ require_once 'game.php';
 function get_icon_filename($connection, $iconid)
 {
     require_once 'db/icons-table.php';
+    verify_icons_table($connection);
     $row = get_icon_row_by_id($connection, $iconid);
     if ($row->num_rows == 0) {
         return '';
