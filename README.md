@@ -14,8 +14,12 @@ System for tracking information about games
 
 Create an empty database and a new user that can access it.
 
-Enter the information into ```db/db-login.php``` (replace the default values).
+Edit the ```db/db-login.php``` file with the new database's information.
 
-Start the server, then navigate to ```/setup.php```. Enter an editor password. Currently, this cannot be reset or changed through the UI.
+Start the server, then navigate to ```setup.php```. Enter a password. Currently, this cannot be reset or changed.
 
-All set, start adding games or importing existing data!
+Add your games or import existing CSV data.
+
+## Live Demo
+
+Coming soon!
