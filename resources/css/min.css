@@ -1,4 +1,3 @@
-body,
 html {
     height: 100%
 }
@@ -8,18 +7,142 @@ body {
     margin: 0
 }
 
-div.content {
-    max-width: 1200px;
-    position: absolute;
+a:not(.link-ignore) {
+    text-decoration: none;
+    color: #0077ff
+}
+
+a:active, a:hover {
+    text-decoration: underline
+}
+
+.flex {
+    display: flex
+}
+
+.col {
+    flex-direction: column
+}
+
+.center-items {
+    align-items: center
+}
+
+div.topbar {
+    position: fixed;
     top: 0;
-    bottom: 0;
+    width: 100%;
+    height: 52px;
+    overflow: hidden;
+    border-radius: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-top: 0 !important;
+}
+
+div.topbar > span#topbar-title {
+    font-size: 20px;
+    color: rgb(114, 114, 114);
+    margin-left: 12px;
+    vertical-align: middle;
+    line-height: 52px
+}
+
+div.topbar > span#editor-login {
+    float: right;
+    margin-right: 24px
+}
+
+div.topbar > span#editor-login > img {
+    width: 14px;
+    height: 14px;
+    margin-right: 4px
+}
+
+div.topbar > span#editor-login > span {
+    font-size: 16px;
+    color: #0077ff;
+    vertical-align: middle;
+    line-height: 52px
+}
+
+div.leftbar {
+    position: fixed;
     left: 0;
-    right: 0;
-    margin: auto
+    height: 100%;
+    width: 180px;
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 1px;
+    border-top: 0;
+    border-left: 0;
+    border-bottom: 0;
+}
+
+div.side-link-container {
+    margin-top: 24px
+}
+
+div.side-link {
+    border-style: solid;
+    border-width: 0 0 0 3px;
+    border-color: transparent
+}
+
+a.side-link-href,
+a.sub-side-link-href {
+    text-decoration: none
+}
+
+a.sub-side-link-href {
+    color: black
+}
+
+div.sub-side-link {
+    padding: 12px 0
+}
+
+div.sub-side-link:hover {
+    background-color: rgb(226, 226, 226);
+    transition: background-color 300ms linear
+}
+
+div.sub-side-link > span {
+    margin-left: 28px;
+    font-size: 14px
+}
+
+div.sub-side-link-active > span {
+    color: #0077ff
+}
+
+div.side-link > img {
+    width: 32px;
+    height: 32px;
+    margin: 4px 12px
+}
+
+div.side-link > span {
+    font-size: 18px;
+    color: #0077ff
+}
+
+div.side-link-active {
+    border-color: #0077ff;
+}
+
+div.page-container {
+    margin: 52px auto auto auto
+}
+
+div.content {
+    margin-left: 204px
 }
 
 div.page-title {
-    font-size: 32px
+    font-size: 32px;
+    padding-top: 12px;
+    margin-bottom: 8px
 }
 
 div.unified-container {

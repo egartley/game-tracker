@@ -4,13 +4,13 @@ div.game-details {
     display: flex
 }
 
-div.game-list {
-    margin: 12px 0
+div.game-list.compact {
+    max-width: 1200px;
+    flex-direction: column
 }
 
-div.game-list.compact {
-    max-width: 800px;
-    flex-direction: column
+div.game-list.csv {
+    max-width: 1200px
 }
 
 div.game-listing:hover {

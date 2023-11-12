@@ -7,6 +7,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 if (!isset($_SESSION["validauth"])) {
     header("Location: /login/?r=" . urlencode($_SERVER['REQUEST_URI']));
-} else if ($_SESSION["validauth"] == "yes") {
+} else if ($_SESSION["validauth"] === "yes") {
     $valid_auth = true;
 }
