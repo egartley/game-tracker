@@ -1,5 +1,5 @@
-html {
-    height: 100%
+:root {
+    --link-color: #0077ff
 }
 
 body {
@@ -9,7 +9,7 @@ body {
 
 a:not(.link-ignore) {
     text-decoration: none;
-    color: #0077ff
+    color: var(--link-color)
 }
 
 a:active, a:hover {
@@ -37,7 +37,7 @@ div.topbar {
     border-radius: 0 !important;
     border-left: 0 !important;
     border-right: 0 !important;
-    border-top: 0 !important;
+    border-top: 0 !important
 }
 
 div.topbar > span#topbar-title {
@@ -61,7 +61,7 @@ div.topbar > span#editor-login > img {
 
 div.topbar > span#editor-login > span {
     font-size: 16px;
-    color: #0077ff;
+    color: var(--link-color);
     vertical-align: middle;
     line-height: 52px
 }
@@ -76,7 +76,7 @@ div.leftbar {
     border-width: 1px;
     border-top: 0;
     border-left: 0;
-    border-bottom: 0;
+    border-bottom: 0
 }
 
 div.side-link-container {
@@ -113,7 +113,7 @@ div.sub-side-link > span {
 }
 
 div.sub-side-link-active > span {
-    color: #0077ff
+    color: var(--link-color)
 }
 
 div.side-link > img {
@@ -124,11 +124,11 @@ div.side-link > img {
 
 div.side-link > span {
     font-size: 18px;
-    color: #0077ff
+    color: var(--link-color)
 }
 
 div.side-link-active {
-    border-color: #0077ff;
+    border-color: var(--link-color)
 }
 
 div.page-container {
@@ -136,7 +136,8 @@ div.page-container {
 }
 
 div.content {
-    margin-left: 204px
+    margin-left: 204px;
+    margin-bottom: 12px
 }
 
 div.page-title {
