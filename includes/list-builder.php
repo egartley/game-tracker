@@ -17,12 +17,11 @@ function get_csv_listing_html($game, $edit_link): string
     $start = '<tr>';
     $content = '<td>';
     if ($edit_link) {
-        $content .= '<a href="/inventory/edit/?id=' . $game->id . '">' . $game->id . '</a>';
+        $content .= '<a href="/inventory/edit/?id=' . $game->id . '">' . $game->title . '</a>';
     } else {
-        $content .= $game->id;
+        $content .= $game->title;
     }
-    $content .= '</td><td>' . $game->title . '</td>';
-    $content .= '<td>' . $game->year . '</td>';
+    $content .= '</td><td>' . $game->year . '</td>';
     $content .= '<td>' . $game->platform . '</td>';
     $content .= '<td>' . $game->company . '</td>';
     $content .= '<td>' . $game->rating . '</td>';
@@ -63,7 +62,7 @@ function get_listing_html($type, $edit_link = false): void
     $all_games = get_all_games();
     if ($type == 'csv') {
         $html = '<table class="csv-table"><tr>
-            <th>ID</th><th>Title</th><th>Year</th><th>Platform</th><th>Company</th><th>Rating</th>
+            <th>Title</th><th>Year</th><th>Platform</th><th>Company</th><th>Rating</th>
             <th>Hours</th><th>Playthroughs</th><th>100%</th><th>Plat</th><th>DLC</th><th>Physical</th>
             <th>Icon</th></tr>';
     }

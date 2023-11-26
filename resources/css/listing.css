@@ -5,12 +5,12 @@ div.game-details {
 }
 
 div.game-list.compact {
-    max-width: 1200px;
+    max-width: 900px;
     flex-direction: column
 }
 
 div.game-list.csv {
-    max-width: 1200px
+    max-width: 1500px
 }
 
 div.game-listing:hover {
