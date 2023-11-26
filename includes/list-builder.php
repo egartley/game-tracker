@@ -43,7 +43,7 @@ function get_compact_listing_html($game): string
     if ($game->iconfile !== '') {
         $iconfile = $game->iconfile;
     }
-    $start = '<div class="game-listing compact">';
+    $start = '<div class="game-listing compact" onclick="window.location.href=\'/game/?id=' . $game->id . '\'">';
     $content = '<div class="game-icon"><img src="/resources/png/icon/' . $iconfile . '"></div>';
     $content .= '<div class="game-details"><div class="game-title">';
     $content .= $game->title . '</div><div class="rating">';

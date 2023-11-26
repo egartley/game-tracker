@@ -13,7 +13,7 @@ function get_icon_filename($connection, $iconid)
     return $row->fetch_assoc()['filename'];
 }
 
-function build_game_object($data, $id = -1): Game
+function build_game_object($connection, $data, $id = -1): Game
 {
     $game = new Game();
     $game->title = $data['title'];
@@ -29,6 +29,7 @@ function build_game_object($data, $id = -1): Game
     $game->plat = $data['plat'] == 1;
     $game->dlc = $data['dlc'] == 1;
     $game->physical = $data['physical'] == 1;
+    $game->iconfile = get_icon_filename($connection, $game->iconid);
     return $game;
 }
 
@@ -40,10 +41,12 @@ function get_game_by_id($id): Game
     $connection = get_mysql_connection();
     verify_games_table($connection);
     $result = get_game_row_by_id($connection, $id);
-    $connection->close();
-
+    
     $row = $result->fetch_assoc();
-    return build_game_object($row, $id);
+    $game = build_game_object($connection, $row, $id);
+    
+    $connection->close();
+    return $game;
 }
 
 function get_all_games(): array
@@ -55,16 +58,14 @@ function get_all_games(): array
     $connection = get_mysql_connection();
     verify_games_table($connection);
     $rows = get_games_table_rows($connection);
-
     if ($rows->num_rows == 0) {
         return $games;
     }
-    while ($row = $rows->fetch_assoc()) {
-        $game = build_game_object($row);
-        $game->iconfile = get_icon_filename($connection, $game->iconid);
-        $games[] = $game;
-    }
-    $connection->close();
 
+    while ($row = $rows->fetch_assoc()) {
+        $games[] = build_game_object($connection, $row);
+    }
+
+    $connection->close();
     return $games;
 }

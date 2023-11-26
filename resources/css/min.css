@@ -87,7 +87,8 @@ div.side-link-container {
 div.side-link {
     border-style: solid;
     border-width: 0 0 0 3px;
-    border-color: transparent
+    border-color: transparent;
+    padding: 2px 0
 }
 
 a.side-link-href,
@@ -103,6 +104,7 @@ div.sub-side-link {
     padding: 12px 0
 }
 
+div.side-link:hover,
 div.sub-side-link:hover {
     background-color: rgb(226, 226, 226);
     transition: background-color 300ms linear
@@ -139,12 +141,12 @@ div.page-container {
 div.content {
     margin-left: 205px;
     margin-bottom: 24px;
-    margin-right: 24px
+    margin-right: 24px;
+    padding-top: 24px
 }
 
 div.page-title {
     font-size: 32px;
-    padding-top: 18px;
     margin-bottom: 8px
 }
 
