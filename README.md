@@ -1,7 +1,9 @@
 # Game Tracker
-System for tracking information about games
+System for tracking information about games (currently a work in progress, see releases)
 
 ![release)](https://img.shields.io/github/v/release/egartley/game-tracker)
+
+<img src="https://raw.githubusercontent.com/egartley/media/master/screenshots/game-tracker.png" width="60%" height="60%">
 
 ## Requirements
 
