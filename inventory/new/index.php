@@ -14,7 +14,6 @@
         require_once '../../includes/header.php';
         get_header();
         get_stylesheet("input.css");
-        get_script("input.js");
     ?>
 </head>
 

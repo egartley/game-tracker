@@ -2,7 +2,7 @@ div.input-outer-container {
     margin-top: 24px
 }
 
-div.input-container:not(:last-child) {
+div.input-container {
     margin-bottom: 12px
 }
 

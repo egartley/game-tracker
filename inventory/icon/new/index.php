@@ -33,9 +33,9 @@
             </div>
             <div class="input-outer-container">
                 <?php
-                require_once "../../../includes/input-builder.php";
-                get_icon_input_html("add");
-            ?>
+                    require_once "../../../includes/input-builder.php";
+                    get_icon_input_html("add");
+                ?>
             </div>
         </div>
     </div>

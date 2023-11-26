@@ -31,7 +31,12 @@ function sanitize_csv_num($data): float
 function build_game_object($title, $year, $platform, $company, $rating, $hours, $playthroughs,
                            $hundo, $plat, $dlc, $physical, $iconid): Game
 {
-    $game = new Game($title, $year, $platform, $company, $rating);
+    $game = new Game();
+    $game->title = $title;
+    $game->year = $year;
+    $game->platform = $platform;
+    $game->company = $company;
+    $game->rating = $rating;
     $game->hours = $hours;
     $game->playthroughs = $playthroughs;
     $game->hundo = $hundo;
@@ -93,13 +98,13 @@ if (isset($_POST['type'])) {
     $connection = get_mysql_connection();
     verify_games_table($connection);
 
-    if ($type == 'new') {
+    if ($type === 'new') {
         $game = get_post_game();
         add_game($connection, $game);
-    } else if ($type == 'edit' && isset($_POST['id'])) {
+    } else if ($type === 'edit' && isset($_POST['id'])) {
         $game = get_post_game();
         edit_game($connection, $game, (int)get_sanitized_param_num('id'));
-    } else if ($type == 'import' && isset($_POST['csv'])) {
+    } else if ($type === 'import' && isset($_POST['csv'])) {
         $lines = explode("\n", $_POST['csv']);
         $array = array();
         $games = array();
@@ -113,10 +118,11 @@ if (isset($_POST['type'])) {
         foreach ($games as $game) {
             add_game($connection, $game);
         }
-    } else if ($type == 'delete' && isset($_POST['id'])) {
+    } else if ($type === 'delete' && isset($_POST['id'])) {
         $id = (int)get_sanitized_param_num('id');
         delete_game($connection, $id);
     }
 
     $connection->close();
+    header('Location: /inventory/');
 }

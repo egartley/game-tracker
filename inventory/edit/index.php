@@ -14,7 +14,6 @@
         require_once '../../includes/header.php';
         get_header();
         get_stylesheet("input.css");
-        get_script("input.js");
     ?>
 </head>
 
@@ -34,9 +33,9 @@
             </div>
             <div class="input-outer-container">
                 <?php
-                require_once "../../includes/input-builder.php";
-                get_input_html("edit");
-            ?>
+                    require_once "../../includes/input-builder.php";
+                    get_input_html("edit");
+                ?>
             </div>
         </div>
     </div>

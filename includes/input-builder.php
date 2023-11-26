@@ -2,79 +2,108 @@
 
 function get_input_html($type): void
 {
-    echo '<div class="input-container">
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title" maxlength="200">
-    </div>
-    <div class="input-container">
-        <label for="year">Year:</label>
-        <input type="text" id="year" name="year" maxlength="4">
-    </div>
-    <div class="input-container">
-        <label for="platform">Platform:</label>
-        <input type="text" id="platform" name="platform" maxlength="50">
-    </div>
-    <div class="input-container">
-        <label for="company">Company:</label>
-        <input type="text" id="company" name="company" maxlength="100">
-    </div>
-    <div class="input-container">
-        <label for="rating">Rating:</label>
-        <input type="range" id="rating" name="rating" value="0" min="0" max="5" step="0.5"
-            oninput="$(\'span#ratingvalue\').html($(this).val())">
-        <span id="ratingvalue">0</span>
-    </div>
-    <div class="input-container">
-        <label for="hours">Hours:</label>
-        <input type="text" id="hours" name="hours" maxlength="3">
-    </div>
-    <div class="input-container">
-        <label for="playthroughs">Playthroughs:</label>
-        <input type="text" id="playthroughs" name="playthroughs" maxlength="3">
-    </div>
-    <div class="input-container">
-        <label for="hundo">100% Completion:</label>
-        <input type="checkbox" id="hundo" name="hundo">
-    </div>
-    <div class="input-container">
-        <label for="plat">Platinum Trophy:</label>
-        <input type="checkbox" id="plat" name="plat">
-    </div>
-    <div class="input-container">
-        <label for="dlc">DLC:</label>
-        <input type="checkbox" id="dlc" name="dlc">
-    </div>
-    <div class="input-container">
-        <label for="physical">Physical Copy:</label>
-        <input type="checkbox" id="physical" name="physical">
-    </div>
-    <div class="input-container">
-        <label for="iconid">Icon ID:</label>
-        <input type="text" id="iconid" name="iconid" maxlength="6">
-    </div>
-    <div class="input-container">
-        <button class="submit" inputtype="' . $type . '">Submit</button>
-    </div>';
+    if ($type !== 'new' && !isset($_GET['id'])) {
+        echo '<p>ID is required.</p>';
+        return;
+    }
 
-    if ($type === 'edit' && isset($_GET['id'])) {
+    require_once 'game.php';
+    $id = "";
+    $game = new Game();
+    if ($type === 'edit') {
         require_once 'game-fetcher.php';
         $id = (int)preg_replace('/[^0-9]/', '', $_GET['id']);
         $game = get_game_by_id($id);
-        echo '<div class="input-container"><button class="delete">Delete</button></div>';
-        echo '<div style="display:none">
-        <span id="gamedata-title">' . $game->title . '</span>
-        <span id="gamedata-year">' . $game->year . '</span>
-        <span id="gamedata-platform">' . $game->platform . '</span>
-        <span id="gamedata-company">' . $game->company . '</span>
-        <span id="gamedata-rating">' . $game->rating . '</span>
-        <span id="gamedata-hours">' . $game->hours . '</span>
-        <span id="gamedata-playthroughs">' . $game->playthroughs . '</span>
-        <span id="gamedata-hundo">' . ($game->hundo ? 1 : 0) . '</span>
-        <span id="gamedata-plat">' . ($game->plat ? 1 : 0) . '</span>
-        <span id="gamedata-dlc">' . ($game->dlc ? 1 : 0) . '</span>
-        <span id="gamedata-physical">' . ($game->physical ? 1 : 0) . '</span>
-        <span id="gamedata-iconid">' . $game->iconid . '</span>
-        </div>';
+    }
+
+    echo '<form action="/inventory/action/index.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="' . $id . '">
+        <input type="hidden" name="type" value="' . $type . '">
+        <!-- why do html checkboxes have to be such a pain... -->
+        <input type="hidden" id="actualhundo" name="hundo" value="' . ($game->hundo ? 1 : 0) . '">
+        <input type="hidden" id="actualplat" name="plat" value="' . ($game->plat ? 1 : 0) . '">
+        <input type="hidden" id="actualdlc" name="dlc" value="' . ($game->dlc ? 1 : 0) . '">
+        <input type="hidden" id="actualphysical" name="physical" value="' . ($game->physical ? 1 : 0) . '">
+
+        <div class="input-container">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" maxlength="200" value="' . $game->title . '">
+        </div>
+        
+        <div class="input-container">
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year" maxlength="4" value="' . $game->year . '">
+        </div>
+
+        <div class="input-container">
+            <label for="platform">Platform:</label>
+            <input type="text" id="platform" name="platform" maxlength="50" value="' . $game->platform . '">
+        </div>
+        
+        <div class="input-container">
+            <label for="company">Company:</label>
+            <input type="text" id="company" name="company" maxlength="100" value="' . $game->company . '">
+        </div>
+
+        <div class="input-container">
+            <label for="rating">Rating:</label>
+            <input type="range" id="rating" name="rating" min="0" max="5" step="0.5"
+                oninput="$(\'span#ratingvalue\').html($(this).val())" value="' . $game->rating . '">
+            <span id="ratingvalue">' . $game->rating . '</span>
+        </div>
+        
+        <div class="input-container">
+            <label for="hours">Hours:</label>
+            <input type="text" id="hours" name="hours" maxlength="3" value="' . $game->hours . '">
+        </div>
+        
+        <div class="input-container">
+            <label for="playthroughs">Playthroughs:</label>
+            <input type="text" id="playthroughs" name="playthroughs" maxlength="3" value="' . $game->playthroughs . '">
+        </div>
+        
+        <div class="input-container">
+            <label for="hundo">100% Completion:</label>
+            <input type="checkbox" id="hundo" ' . ($game->hundo ? ' checked' : '') . '
+                onclick="$(\'input#actualhundo\').val($(this).is(\':checked\') ? \'1\' : \'0\')">
+        </div>
+        
+        <div class="input-container">
+            <label for="plat">Platinum Trophy:</label>
+            <input type="checkbox" id="plat" ' . ($game->plat ? ' checked' : '') . '
+                onclick="$(\'input#actualplat\').val($(this).is(\':checked\') ? \'1\' : \'0\')">
+        </div>
+        
+        <div class="input-container">
+            <label for="dlc">DLC:</label>
+            <input type="checkbox" id="dlc" ' . ($game->dlc ? ' checked' : '') . '
+                onclick="$(\'input#actualdlc\').val($(this).is(\':checked\') ? \'1\' : \'0\')">
+        </div>
+        
+        <div class="input-container">
+            <label for="physical">Physical Copy:</label>
+            <input type="checkbox" id="physical" ' . ($game->physical ? ' checked' : '') . '
+                onclick="$(\'input#actualphysical\').val($(this).is(\':checked\') ? \'1\' : \'0\')">
+        </div>
+        
+        <div class="input-container">
+            <label for="iconid">Icon ID:</label>
+            <input type="text" id="iconid" name="iconid" maxlength="6" value="' . $game->iconid . '">
+        </div>
+
+        <div class="input-container">
+            <input type="submit" value="Submit" name="submit">
+        </div>
+    </form>';
+
+    if ($type === 'edit') {
+        echo '<form action="/inventory/action/index.php" method="post" enctype="multipart/form-data">
+            <div class="input-container">
+                <input type="submit" value="Delete" name="submit">
+            </div>
+            <input type="hidden" value="delete" name="type">
+            <input type="hidden" value="' . $id . '" name="id">
+        </form>';
     }
 }
 

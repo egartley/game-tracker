@@ -2,9 +2,9 @@
 
 class Game
 {
-    public string $title = "";
-    public string $company = "";
-    public string $platform = "";
+    public string $title = '';
+    public string $company = '';
+    public string $platform = '';
     public int $year = 0;
     public float $rating = 0.0;
     public int $playthroughs = 0;
@@ -16,15 +16,6 @@ class Game
     public int $iconid = 0;
     public int $id = 0;
     public string $iconfile = '';
-
-    function __construct($title, $year, $platform, $company, $rating)
-    {
-        $this->title = $title;
-        $this->year = $year;
-        $this->platform = $platform;
-        $this->company = $company;
-        $this->rating = $rating;
-    }
 
     function get_rating_html(): string
     {

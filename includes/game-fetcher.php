@@ -15,7 +15,12 @@ function get_icon_filename($connection, $iconid)
 
 function build_game_object($data, $id = -1): Game
 {
-    $game = new Game($data['title'], $data['year'], $data['platform'], $data['company'], $data['rating']);
+    $game = new Game();
+    $game->title = $data['title'];
+    $game->year = $data['year'];
+    $game->platform = $data['platform'];
+    $game->company = $data['company'];
+    $game->rating = $data['rating'];
     $game->id = $id === -1 ? $data['id'] : $id;
     $game->iconid = $data['iconid'];
     $game->hours = $data['hours'];

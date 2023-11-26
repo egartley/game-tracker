@@ -56,7 +56,8 @@ div.topbar > span#editor-login {
 div.topbar > span#editor-login > img {
     width: 14px;
     height: 14px;
-    margin-right: 4px
+    margin-right: 4px;
+    padding-bottom: 4px
 }
 
 div.topbar > span#editor-login > span {
