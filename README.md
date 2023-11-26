@@ -3,7 +3,7 @@ System for tracking information about games (currently a work in progress, see r
 
 ![release)](https://img.shields.io/github/v/release/egartley/game-tracker)
 
-<img src="https://raw.githubusercontent.com/egartley/media/master/screenshots/game-tracker.png" width="60%" height="60%">
+<img src="https://raw.githubusercontent.com/egartley/media/master/screenshots/game-tracker.png" width="80%" height="80%">
 
 ## Requirements
 
