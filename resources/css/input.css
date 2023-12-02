@@ -17,3 +17,55 @@ textarea#csvtext {
 textarea#csvtext button.submit {
     margin-top: 24px
 }
+
+div.edit-container > div:not(:last-child) {
+    margin-bottom: 18px
+}
+
+div#toggles-container > input:not(:last-child) {
+    margin-right: 18px
+}
+
+img#icon-picker-img {
+    width: 200px
+}
+
+input[type=text],
+input[type=number] {
+    padding: 4px;
+    background-color: #fafafa;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: darkgray
+}
+
+input[type=number] {
+    width: 50px
+}
+
+textarea#notes {
+    display: block;
+    min-width: 800px;
+    max-width: 800px;
+    min-height: 200px;
+    max-height: 400px
+}
+
+input[type=submit],
+button {
+    padding: 6px 12px;
+    background-color: #fafafa;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: rgb(121, 121, 121);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5)
+}
+
+input[type=submit]:hover,
+button:hover {
+    cursor: pointer;
+    background-color: #e7e7e7;
+    transition: background-color 300ms linear
+}
