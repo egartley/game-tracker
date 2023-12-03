@@ -101,3 +101,16 @@ table.csv-table td.csv-icon > img {
 img.internal-icon-csv {
     width: 72px
 }
+
+div.icon-grid {
+    max-width: 1200px;
+    flex-wrap: wrap
+}
+
+div.icon-grid > div {
+    padding: 12px
+}
+
+img.icon-grid-icon {
+    width: 100px
+}

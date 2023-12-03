@@ -8,12 +8,18 @@ function get_input_html($type): void
     }
 
     require_once 'game.php';
-    $id = "";
+    $id = '';
     $game = new Game();
     if ($type === 'edit') {
         require_once 'game-fetcher.php';
         $id = (int)preg_replace('/[^0-9]/', '', $_GET['id']);
         $game = get_game_by_id($id);
+    }
+    $iconurl = $game->iconfile === "" ? 'default-icon.png' : $game->iconfile;
+    $iconid = $game->iconid;
+    if ($type === 'edit' && isset($_GET['icon']) && isset($_GET['file'])) {
+        $iconid = (int)preg_replace('/[^0-9]/', '', $_GET['icon']);
+        $iconurl = $_GET['file'];
     }
 
     echo '<form action="/inventory/action/index.php" method="post" enctype="multipart/form-data" class="flex col">
@@ -24,14 +30,15 @@ function get_input_html($type): void
         <input type="hidden" id="actualplat" name="plat" value="' . ($game->plat ? 1 : 0) . '">
         <input type="hidden" id="actualdlc" name="dlc" value="' . ($game->dlc ? 1 : 0) . '">
         <input type="hidden" id="actualphysical" name="physical" value="' . ($game->physical ? 1 : 0) . '">
-        <input type="hidden" id="actualiconid" name="iconid" value="' . $game->iconid . '">
+        <input type="hidden" id="actualiconid" name="iconid" value="' . $iconid . '">
 
         <div class="input-container flex">
             <div class="icon-picker-container flex col" style="margin-right:24px">
-                <img id="icon-picker-img" src="/resources/png/icon/' . ($game->iconfile === "" ? 'default-icon.png' : $game->iconfile) . '">
+                <img id="icon-picker-img" src="/resources/png/icon/' . $iconurl . '">
                 <div class="flex" style="justify-content:center;margin-top:8px">
-                    <button type="button" style="margin-right:12px">Pick...</button>
-                    <button type="button">Clear</button>
+                    <button type="button" style="margin-right:12px" onclick="window.location.href=\'/inventory/icon/pick/?game=' . $id . '\'">Pick...</button>
+                    <button type="button" onclick="$(\'input#actualhundo\').val(\'0\');
+                        $(\'img#icon-picker-img\').attr(\'src\', \'/resources/png/icon/default-icon.png\')">Clear</button>
                 </div>
             </div>
             <div class="edit-container flex col">

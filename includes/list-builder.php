@@ -81,14 +81,34 @@ function get_listing_html($type, $edit_link = false): void
     echo $html;
 }
 
-function get_icon_listing_html(): void
+function get_icon_grid_html($icon, $gameid)
+{
+    $start = '<div>';
+    $content = '<a href="/inventory/edit/?id=' . $gameid . '&icon=' . $icon->id . '&file=' . $icon->filename . '">';
+    $content .= '<img class="icon-grid-icon" src="/resources/png/icon/' . $icon->filename . '">';
+    $end = '</a></div>';
+
+    return $start . $content . $end;
+}
+
+function get_icon_listing_html($type = 'default', $gameid = -1): void
 {
     require_once 'icon-fetcher.php';
-    $html = '<table class="csv-table"><tr><th>ID</th><th>Image</th><th>File Name</th><th>Actions</th></tr>';
     $all_icons = get_all_icons();
-    foreach ($all_icons as $icon) {
-        $html .= get_icon_csv_listing_html($icon);
+    if ($type === 'default') {
+        $html = '<table class="csv-table"><tr><th>ID</th><th>Image</th><th>File Name</th><th>Actions</th></tr>';
+        foreach ($all_icons as $icon) {
+            $html .= get_icon_csv_listing_html($icon);
+        }
+        $html .= '</table>';
+        echo $html;
+    } else if ($type === 'grid' && $gameid !== -1) {
+        $html = '';
+        foreach ($all_icons as $icon) {
+            $html .= get_icon_grid_html($icon, $gameid);
+        }
+        echo $html;
+    } else {
+        echo '<p>Invalid icon listing parameters!</p>';
     }
-    $html .= '</table>';
-    echo $html;
 }
