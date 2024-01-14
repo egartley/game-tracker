@@ -40,12 +40,17 @@ div.topbar {
     border-top: 0 !important
 }
 
-div.topbar > span#topbar-title {
+div.topbar > a#topbar-title {
     font-size: 20px;
     color: rgb(114, 114, 114);
     margin-left: 12px;
     vertical-align: middle;
-    line-height: 52px
+    line-height: 52px;
+    text-decoration: none
+}
+
+div.topbar > a#topbar-title:hover {
+    color: var(--link-color)
 }
 
 div.topbar > span#editor-login {

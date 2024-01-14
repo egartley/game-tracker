@@ -27,7 +27,7 @@
     <div class="page-container">
         <?php
             require_once '../../includes/html-builder.php';
-            echo get_leftbar_html("Games", "inventory");
+            echo get_leftbar_html("Games", "");
         ?>
         <div class="content">
             <div class="page-title">

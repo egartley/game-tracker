@@ -10,9 +10,15 @@ function get_subsidelink_html($name, $is_active, $path)
     return $html;
 }
 
-function get_sidelink_html($name, $is_active)
+function get_sidelink_html($name, $is_active, $loggedin)
 {
-    $html = '<a class="link-ignore side-link-href" href="/"><div class="side-link flex center-items';
+    $html = '<a class="link-ignore side-link-href" href="';
+    if ($loggedin) {
+        $html .= '/inventory/game';
+    } else {
+        $html .= '/';
+    }
+    $html .= '"><div class="side-link flex center-items';
     if ($is_active) {
         $html .= ' side-link-active';
     }
@@ -32,9 +38,9 @@ function get_leftbar_html($active_sidelink, $active_subsidelink)
     }
     $loggedin = isset($_SESSION['validauth']) && $_SESSION['validauth'] === 'yes';
     $sidelinks = array('Games');
-    $subsidelinks_games = array(array('Inventory', '/inventory/game'), array('Icons', '/inventory/icon'), array('Tags', '/inventory/tag'));
+    $subsidelinks_games = array(array('Icons', '/inventory/icon'), array('Tags', '/inventory/tag'));
     foreach ($sidelinks as $sidelink) {
-        $html .= get_sidelink_html($sidelink, strtolower($sidelink) === strtolower($active_sidelink));
+        $html .= get_sidelink_html($sidelink, strtolower($sidelink) === strtolower($active_sidelink), $loggedin);
         if ($loggedin && $sidelink === 'Games') {
             foreach ($subsidelinks_games as $sub) {
                 $html .= get_subsidelink_html($sub[0], strtolower($sub[0]) === strtolower($active_subsidelink), $sub[1]);
@@ -47,7 +53,7 @@ function get_leftbar_html($active_sidelink, $active_subsidelink)
 
 function get_topbar_html()
 {
-    $html = '<div class="topbar unified-container"><span id="topbar-title">Game Tracker</span>';
+    $html = '<div class="topbar unified-container"><a class="link-ignore" id="topbar-title" href="/">Game Tracker</a>';
 
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
