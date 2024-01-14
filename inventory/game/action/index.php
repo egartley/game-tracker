@@ -29,7 +29,7 @@ function sanitize_csv_num($data): float
 }
 
 function build_game_object($title, $year, $platform, $company, $rating, $hours, $playthroughs,
-                           $hundo, $plat, $dlc, $physical, $iconid): Game
+                           $hundo, $plat, $dlc, $physical, $iconid, $notes): Game
 {
     $game = new Game();
     $game->title = $title;
@@ -44,6 +44,7 @@ function build_game_object($title, $year, $platform, $company, $rating, $hours, 
     $game->dlc = $dlc;
     $game->physical = $physical;
     $game->iconid = $iconid;
+    $game->notes = $notes;
     return $game;
 }
 
@@ -61,9 +62,10 @@ function get_post_game(): Game
     $dlc = (int)get_sanitized_param_num('dlc') === 1;
     $physical = (int)get_sanitized_param_num('physical') === 1;
     $iconid = (int)get_sanitized_param_num('iconid');
+    $notes = get_sanitized_param('notes');
 
     return build_game_object($title, $year, $platform, $company, $rating, $hours,
-        $playthroughs, $hundo, $plat, $dlc, $physical, $iconid);
+        $playthroughs, $hundo, $plat, $dlc, $physical, $iconid, $notes);
 }
 
 function get_csv_game($line): Game
@@ -81,7 +83,7 @@ function get_csv_game($line): Game
     $physical = (int)sanitize_csv_num($line[11]) === 1;
 
     return build_game_object($title, $year, $platform, $company, $rating, $hours,
-        $playthroughs, $hundo, $plat, $dlc, $physical, 0);
+        $playthroughs, $hundo, $plat, $dlc, $physical, 0, '');
 }
 
 include_once '../../../includes/auth/check-auth.php';

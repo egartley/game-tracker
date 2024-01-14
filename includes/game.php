@@ -16,6 +16,7 @@ class Game
     public int $iconid = 0;
     public int $id = 0;
     public string $iconfile = '';
+    public string $notes = '';
 
     function get_rating_html(): string
     {

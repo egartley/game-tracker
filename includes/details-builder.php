@@ -71,4 +71,9 @@ function get_details_html()
         <span class="detail-title">Physical Copy: </span>
         <span class="detail-value">' . ($game->physical ? 'true' : 'false') . '</span>
     </div>';
+    if ($game->notes !== '') {
+        echo '<div class="page-subtitle" style="margin-top:24px">Notes</div>
+    <div class="divider"></div>
+    <p>' . $game->notes . '</p>';
+    }
 }

@@ -52,7 +52,7 @@ function get_input_html($type): void
                     <span id="ratingvalue">' . $game->rating . '</span>
                 </div>
                 <div>
-                    <input placeholder="Year" type="number" id="year" name="year" maxlength="4" value="' . $game->year . '">
+                    <input placeholder="Year" type="number" id="year" name="year" maxlength="4"' . ($game->year == 0 ? '' : ' value="' . $game->year . '"') . '>
                 </div>
                 <div>
                     <input placeholder="Platform" type="text" id="platform" name="platform" maxlength="50" value="' . $game->platform . '">
@@ -85,7 +85,7 @@ function get_input_html($type): void
 
         <div class="input-container" style="font-size:24px;margin-top:24px">Notes</div>
         <div class="input-container">
-            <textarea id="notes" name="notes"></textarea>
+            <textarea id="notes" name="notes" maxlength="8192" placeholder="Enter notes about the game here">' . $game->notes . '</textarea>
         </div>
 
         <div class="input-container" style="margin-top:24px">
