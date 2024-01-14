@@ -94,6 +94,9 @@ function get_icon_grid_html($icon, $gameid)
 {
     $start = '<div>';
     $content = '<a href="/inventory/game/edit/?id=' . $gameid . '&icon=' . $icon->id . '&file=' . $icon->filename . '">';
+    if ($gameid === 'new') {
+        $content = '<a href="/inventory/game/new/?icon=' . $icon->id . '&file=' . $icon->filename . '">';
+    }
     $content .= '<img class="icon-grid-icon" src="/resources/png/icon/' . $icon->filename . '">';
     $end = '</a></div>';
 

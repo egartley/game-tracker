@@ -8,7 +8,7 @@ function get_input_html($type): void
     }
 
     require_once 'game.php';
-    $id = '';
+    $id = 'new';
     $game = new Game();
     if ($type === 'edit') {
         require_once 'game-fetcher.php';
@@ -17,7 +17,7 @@ function get_input_html($type): void
     }
     $iconurl = $game->iconfile === "" ? 'default-icon.png' : $game->iconfile;
     $iconid = $game->iconid;
-    if ($type === 'edit' && isset($_GET['icon']) && isset($_GET['file'])) {
+    if (isset($_GET['icon']) && isset($_GET['file'])) {
         $iconid = (int)preg_replace('/[^0-9]/', '', $_GET['icon']);
         $iconurl = $_GET['file'];
     }
@@ -37,7 +37,7 @@ function get_input_html($type): void
                 <img id="icon-picker-img" src="/resources/png/icon/' . $iconurl . '">
                 <div class="flex" style="justify-content:center;margin-top:8px">
                     <button type="button" style="margin-right:12px" onclick="window.location.href=\'/inventory/icon/pick/?game=' . $id . '\'">Pick...</button>
-                    <button type="button" onclick="$(\'input#actualhundo\').val(\'0\');
+                    <button type="button" onclick="$(\'input#actualiconid\').val(\'0\');
                         $(\'img#icon-picker-img\').attr(\'src\', \'/resources/png/icon/default-icon.png\')">Clear</button>
                 </div>
             </div>

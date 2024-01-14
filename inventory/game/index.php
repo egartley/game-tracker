@@ -9,7 +9,7 @@
 <html lang="en">
 
 <head>
-    <title>Manage Inventory</title>
+    <title>Manage Games</title>
     <?php
         require_once "../../includes/header.php";
         get_header();
@@ -31,7 +31,7 @@
         ?>
         <div class="content">
             <div class="page-title">
-                <span>Manage Inventory</span>
+                <span>Manage Games</span>
             </div>
             <div class="action-button-container">
                 <div class="action-button action-button-new unified-container">
