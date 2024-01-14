@@ -32,7 +32,7 @@ function get_leftbar_html($active_sidelink, $active_subsidelink)
     }
     $loggedin = isset($_SESSION['validauth']) && $_SESSION['validauth'] === 'yes';
     $sidelinks = array('Games');
-    $subsidelinks_games = array(array('Inventory', '/inventory'), array('Icons', '/inventory/icon'));
+    $subsidelinks_games = array(array('Inventory', '/inventory'), array('Icons', '/inventory/icon'), array('Tags', '/inventory/tag'));
     foreach ($sidelinks as $sidelink) {
         $html .= get_sidelink_html($sidelink, strtolower($sidelink) === strtolower($active_sidelink));
         if ($loggedin && $sidelink === 'Games') {

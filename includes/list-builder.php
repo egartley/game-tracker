@@ -12,6 +12,15 @@ function get_icon_csv_listing_html($icon): string
     return $start . $content . $end;
 }
 
+function get_tag_csv_listing_html($tag): string
+{
+    $content = '<tr><td>' . $tag->id . '</td>';
+    $content .= '<td>' . $tag->text . '</td>';
+    $content .= '<td><a href="/inventory/tag/delete/?id=' . $tag->id . '">Delete</a></td></tr>';
+
+    return $content;
+}
+
 function get_csv_listing_html($game, $edit_link): string
 {
     $start = '<tr>';
@@ -111,4 +120,16 @@ function get_icon_listing_html($type = 'default', $gameid = -1): void
     } else {
         echo '<p>Invalid icon listing parameters!</p>';
     }
+}
+
+function get_tag_listing_html(): void
+{
+    require_once 'tag-fetcher.php';
+    $all_tags = get_all_tags();
+    $html = '<table class="csv-table"><tr><th>ID</th><th>Text</th><th>Actions</th></tr>';
+    foreach ($all_tags as $tag) {
+        $html .= get_tag_csv_listing_html($tag);
+    }
+    $html .= '</table>';
+    echo $html;
 }

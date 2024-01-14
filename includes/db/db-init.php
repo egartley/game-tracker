@@ -26,6 +26,12 @@ function create_icons_table($connection): bool
     return create_db_table($connection, $icons_table_name, $icons_table_schema);
 }
 
+function create_tags_table($connection): bool
+{
+    include "db-config.php";
+    return create_db_table($connection, $tags_table_name, $tags_table_schema);
+}
+
 function create_editor_table($connection): bool
 {
     include "db-config.php";
