@@ -22,7 +22,7 @@ function get_input_html($type): void
         $iconurl = $_GET['file'];
     }
 
-    echo '<form action="/inventory/action/index.php" method="post" enctype="multipart/form-data" class="flex col">
+    echo '<form action="/inventory/game/action/index.php" method="post" enctype="multipart/form-data" class="flex col">
         <input type="hidden" name="id" value="' . $id . '">
         <input type="hidden" name="type" value="' . $type . '">
         <!-- why do html checkboxes have to be such a pain... -->
@@ -94,7 +94,7 @@ function get_input_html($type): void
     </form>';
 
     if ($type === 'edit') {
-        echo '<form action="/inventory/action/index.php" method="post" enctype="multipart/form-data">
+        echo '<form action="/inventory/game/action/index.php" method="post" enctype="multipart/form-data">
             <div class="input-container" style="margin-top:12px">
                 <input style="color:red" type="submit" value="Delete" name="submit">
             </div>

@@ -26,7 +26,7 @@ function get_csv_listing_html($game, $edit_link): string
     $start = '<tr>';
     $content = '<td>';
     if ($edit_link) {
-        $content .= '<a href="/inventory/edit/?id=' . $game->id . '">' . $game->title . '</a>';
+        $content .= '<a href="/inventory/game/edit/?id=' . $game->id . '">' . $game->title . '</a>';
     } else {
         $content .= $game->title;
     }
@@ -93,7 +93,7 @@ function get_listing_html($type, $edit_link = false): void
 function get_icon_grid_html($icon, $gameid)
 {
     $start = '<div>';
-    $content = '<a href="/inventory/edit/?id=' . $gameid . '&icon=' . $icon->id . '&file=' . $icon->filename . '">';
+    $content = '<a href="/inventory/game/edit/?id=' . $gameid . '&icon=' . $icon->id . '&file=' . $icon->filename . '">';
     $content .= '<img class="icon-grid-icon" src="/resources/png/icon/' . $icon->filename . '">';
     $end = '</a></div>';
 

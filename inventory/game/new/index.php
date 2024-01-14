@@ -1,5 +1,5 @@
 <?php
-    include_once '../../includes/auth/check-auth.php';
+    include_once '../../../includes/auth/check-auth.php';
     if (!$valid_auth) {
         exit();
     }
@@ -9,9 +9,9 @@
 <html lang="en">
 
 <head>
-    <title>Edit Game</title>
+    <title>New Game</title>
     <?php
-        require_once '../../includes/header.php';
+        require_once '../../../includes/header.php';
         get_header();
         get_stylesheet("input.css");
     ?>
@@ -19,22 +19,22 @@
 
 <body>
     <?php
-        require_once '../../includes/html-builder.php';
+        require_once '../../../includes/html-builder.php';
         echo get_topbar_html();
     ?>
     <div class="page-container">
         <?php
-            require_once '../../includes/html-builder.php';
+            require_once '../../../includes/html-builder.php';
             echo get_leftbar_html("Games", "inventory");
         ?>
         <div class="content">
             <div class="page-title">
-                <span>Edit Game</span>
+                <span>New Game</span>
             </div>
             <div class="input-outer-container">
                 <?php
-                    require_once "../../includes/input-builder.php";
-                    get_input_html("edit");
+                    require_once "../../../includes/input-builder.php";
+                    get_input_html("new");
                 ?>
             </div>
         </div>

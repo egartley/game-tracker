@@ -1,5 +1,5 @@
 <?php
-    include_once '../../includes/auth/check-auth.php';
+    include_once '../../../includes/auth/check-auth.php';
     if (!$valid_auth) {
         exit();
     }
@@ -11,7 +11,7 @@
 <head>
     <title>Import Data</title>
     <?php
-        require_once '../../includes/header.php';
+        require_once '../../../includes/header.php';
         get_header();
         get_stylesheet("input.css");
         get_script("import.js");
@@ -20,12 +20,12 @@
 
 <body>
     <?php
-        require_once '../../includes/html-builder.php';
+        require_once '../../../includes/html-builder.php';
         echo get_topbar_html();
     ?>
     <div class="page-container">
         <?php
-            require_once '../../includes/html-builder.php';
+            require_once '../../../includes/html-builder.php';
             echo get_leftbar_html("Games", "inventory");
         ?>
         <div class="content">

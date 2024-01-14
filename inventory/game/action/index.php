@@ -84,7 +84,7 @@ function get_csv_game($line): Game
         $playthroughs, $hundo, $plat, $dlc, $physical, 0);
 }
 
-include_once '../../includes/auth/check-auth.php';
+include_once '../../../includes/auth/check-auth.php';
 if (!$valid_auth) {
     exit();
 }
@@ -92,9 +92,9 @@ if (!$valid_auth) {
 if (isset($_POST['type'])) {
     $type = $_POST['type'];
 
-    require_once '../../includes/db/db-connection.php';
-    require_once '../../includes/db/games-table.php';
-    require_once '../../includes/game.php';
+    require_once '../../../includes/db/db-connection.php';
+    require_once '../../../includes/db/games-table.php';
+    require_once '../../../includes/game.php';
     $connection = get_mysql_connection();
     verify_games_table($connection);
 
@@ -124,5 +124,5 @@ if (isset($_POST['type'])) {
     }
 
     $connection->close();
-    header('Location: /inventory/');
+    header('Location: /inventory/game/');
 }
