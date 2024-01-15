@@ -42,5 +42,11 @@ function add_icon($connection, $filename)
 function delete_icon($connection, $id)
 {
     include 'db-config.php';
+    
+    $icondata = get_icon_row_by_id($connection, $id);
+    unlink($_SERVER['DOCUMENT_ROOT'] . '/resources/png/icon/' . $icondata->fetch_assoc()['filename']);
+    
+    $connection->query('UPDATE ' . $games_table_name . ' SET iconid=0 WHERE iconid=' . $id);
+    
     return $connection->query('DELETE FROM ' . $icons_table_name . " WHERE id=" . $id);
 }
