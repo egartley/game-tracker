@@ -21,6 +21,13 @@ function get_input_html($type): void
         $iconid = (int)preg_replace('/[^0-9]/', '', $_GET['icon']);
         $iconurl = $_GET['file'];
     }
+    require 'tag-fetcher.php';
+    $alltags = get_all_tags();
+    $tagoptions = '<option value="none">(None)</option>';
+    foreach ($alltags as $tag) {
+        $tagoptions .= '<option value="' . $tag->text . ',' . $tag->id . '">' . $tag->text . '</option>';
+    }
+    $gametags = get_game_tags($game);
 
     echo '<form action="/inventory/game/action/index.php" method="post" enctype="multipart/form-data" class="flex col">
         <input type="hidden" name="id" value="' . $id . '">
@@ -31,6 +38,7 @@ function get_input_html($type): void
         <input type="hidden" id="actualdlc" name="dlc" value="' . ($game->dlc ? 1 : 0) . '">
         <input type="hidden" id="actualphysical" name="physical" value="' . ($game->physical ? 1 : 0) . '">
         <input type="hidden" id="actualiconid" name="iconid" value="' . $iconid . '">
+        <input type="hidden" id="actualtags" name="tags" value="' . $game->tags . '">
 
         <div class="input-container flex">
             <div class="icon-picker-container flex col" style="margin-right:24px">
@@ -79,6 +87,13 @@ function get_input_html($type): void
                     <label for="physical">Physical Copy:</label>
                     <input type="checkbox" id="physical" ' . ($game->physical ? ' checked' : '') . '
                         onclick="$(\'input#actualphysical\').val($(this).is(\':checked\') ? \'1\' : \'0\')">
+                </div>
+                <div id="tags-container">
+                    <span style="margin-right:8px">Tags:</span>' . $game->get_tags_html($gametags, true) . '
+                </div>
+                <div id="tagdropdown-container">
+                    <label for="tagdropdown">Add tag:</label>
+                    <select name="tagdropdown" id="tagdropdown">' . $tagoptions . '</select>
                 </div>
             </div>
         </div>

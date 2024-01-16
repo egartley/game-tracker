@@ -31,6 +31,7 @@ function build_game_object($connection, $data, $id = -1): Game
     $game->physical = $data['physical'] == 1;
     $game->iconfile = get_icon_filename($connection, $game->iconid);
     $game->notes = $data['notes'];
+    $game->tags = $data['tags'];
     return $game;
 }
 

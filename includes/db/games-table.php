@@ -18,6 +18,15 @@ function get_game_row_by_id($connection, $id)
     return $connection->query('SELECT * FROM ' . $games_table_name . ' WHERE id=' . $id . " LIMIT 1");
 }
 
+function get_games_with_tag_by_id($connection, $tagid)
+{
+    include 'db-config.php';
+    // X or X,* or *,X,* or *,X
+    // only, first, nth, last
+    return $connection->query('SELECT * FROM ' . $games_table_name .
+            ' WHERE tags LIKE "' . $tagid . '" OR tags LIKE "' . $tagid . ',%" OR tags LIKE "%,' . $tagid . ',%" OR tags LIKE "%,' . $tagid . '"');
+}
+
 function get_game_exists($connection, $game): bool
 {
     include 'db-config.php';
@@ -41,7 +50,8 @@ function get_game_add_query($connection, $game): string
     $query .= ($game->dlc ? 1 : 0) . ', ';
     $query .= ($game->physical ? 1 : 0) . ', ';
     $query .= $game->iconid . ", \"";
-    $query .= $game->notes . "\");";
+    $query .= $game->notes . "\", \"";
+    $query .= $game->tags . "\");";
     return $query;
 }
 
@@ -78,7 +88,8 @@ function edit_game($connection, $game, $id)
         $query .= 'dlc=' . ($game->dlc ? 1 : 0) . ', ';
         $query .= 'physical=' . ($game->physical ? 1 : 0) . ', ';
         $query .= 'iconid=' . $game->iconid . ', ';
-        $query .= "notes=\"" . $game->notes . "\"";
+        $query .= "notes=\"" . $game->notes . "\", ";
+        $query .= "tags=\"" . $game->tags . "\"";
         $query .= ' WHERE id=' . $id;
         return $connection->query($query);
     } else {

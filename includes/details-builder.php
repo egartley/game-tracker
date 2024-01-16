@@ -14,6 +14,9 @@ function get_details_html()
     if ($game->iconfile !== '') {
         $iconfile = $game->iconfile;
     }
+    require 'tag-fetcher.php';
+    $gametags = get_game_tags($game);
+
     echo '<a href="/" class="back-link"><img src="/resources/png/back-arrow.png">Back to results</a>
     <div class="flex details-highlight unified-container">
         <img id="game-icon" src="/resources/png/icon/' . $iconfile . '">
@@ -23,6 +26,7 @@ function get_details_html()
             <div id="year">' .  $game->year . '</div>
             <div id="company">' .  $game->company . '</div>
             <div id="platform">' .  $game->platform . '</div>
+            <div id="tags">' . $game->get_tags_html($gametags, false) . '</div>
         </div>
     </div>';
     echo '<div class="page-subtitle">Full Details</div>

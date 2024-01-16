@@ -17,6 +17,7 @@ class Game
     public int $id = 0;
     public string $iconfile = '';
     public string $notes = '';
+    public string $tags = '';
 
     function get_rating_html(): string
     {
@@ -32,6 +33,28 @@ class Game
             $content .= str_repeat('<img src="/resources/png/se.png">', $empties);
         }
 
+        return $content;
+    }
+
+    function get_tags_html($alltags, $deleteable): string
+    {
+        if ($this->tags == '') {
+            return '';
+        }
+        $content = '';
+        $mytags = array($this->tags);
+        if (str_contains($this->tags, ",")) {
+            $mytags = explode(",", $this->tags);
+        }
+        foreach ($alltags as $tag) {
+            if (in_array($tag->id, $mytags)) {
+                $del = '<span class="tag-delete-x" tagval="' . $tag->text . '" tagid="' . $tag->id . '">X</span>';
+                if (!$deleteable) {
+                    $del = '';
+                }
+                $content .= '<span class="game-tag" id="tag-' . $tag->text . '">' . $tag->text . $del . '</span>';
+            }
+        }
         return $content;
     }
 }

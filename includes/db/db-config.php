@@ -19,7 +19,8 @@ plat BOOLEAN NOT NULL DEFAULT 0,
 dlc BOOLEAN NOT NULL DEFAULT 0,
 physical BOOLEAN NOT NULL DEFAULT 0,
 iconid INT(6) NOT NULL DEFAULT 0,
-notes VARCHAR(8192) NOT NULL DEFAULT ''
+notes VARCHAR(8192) NOT NULL DEFAULT '',
+tags VARCHAR(128) NOT NULL DEFAULT ''
 ";
 $icons_table_schema = "
 id INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -35,5 +36,5 @@ passhash VARCHAR(255) NOT NULL PRIMARY KEY
 
 $icons_table_columns = "(filename)";
 $tags_table_columns = "(text)";
-$games_table_columns = "(title, year, platform, company, rating, hours, playthroughs, hundo, plat, dlc, physical, iconid, notes)";
+$games_table_columns = "(title, year, platform, company, rating, hours, playthroughs, hundo, plat, dlc, physical, iconid, notes, tags)";
 $editor_table_columns = "(passhash)";

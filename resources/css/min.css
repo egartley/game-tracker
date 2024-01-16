@@ -163,3 +163,29 @@ div.unified-container {
     box-shadow: 0 0 2px lightgray;
     background-color: #fafafa
 }
+
+span.game-tag {
+    display: inline-block;
+    font-size: 14px;
+    background-color: lightblue;
+    padding: 4px 12px;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 0;
+    border-radius: 16px
+}
+
+span.game-tag:not(:last-child) {
+    margin-right: 8px
+}
+
+span.tag-delete-x {
+    color: #5e82a3;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 6px
+}
+
+span.tag-delete-x:hover {
+    cursor: pointer
+}
