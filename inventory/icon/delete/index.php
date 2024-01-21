@@ -9,13 +9,13 @@ function get_sanitized_param_num($name): int
     }
 }
 
-include_once '../../../includes/auth/check-auth.php';
+require '../../../includes/auth/check-auth.php';
 if (!$valid_auth) {
     exit();
 }
 
-require_once '../../../includes/db/db-connection.php';
-require_once '../../../includes/db/icons-table.php';
+require '../../../includes/db/db-connection.php';
+require '../../../includes/db/icons-table.php';
 $connection = get_mysql_connection();
 verify_icons_table($connection);
 

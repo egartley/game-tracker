@@ -9,14 +9,14 @@ function get_sanitized_param($name): array|string|null
     }
 }
 
-include_once '../../../includes/auth/check-auth.php';
+require '../../../includes/auth/check-auth.php';
 if (!$valid_auth) {
     exit();
 }
 
 if (isset($_POST['text'])) {
-    require_once '../../../includes/db/db-connection.php';
-    require_once '../../../includes/db/tags-table.php';
+    require '../../../includes/db/db-connection.php';
+    require '../../../includes/db/tags-table.php';
     $connection = get_mysql_connection();
     verify_tags_table($connection);
     add_tag($connection, get_sanitized_param('text'));

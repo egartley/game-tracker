@@ -1,5 +1,5 @@
 <?php
-    include_once '../../../includes/auth/check-auth.php';
+    require '../../../includes/auth/check-auth.php';
     if (!$valid_auth) {
         exit();
     }
@@ -11,7 +11,7 @@
 <head>
     <title>New Icon</title>
     <?php
-        require_once '../../../includes/header.php';
+        require '../../../includes/header.php';
         get_header();
         get_stylesheet("input.css");
     ?>
@@ -19,12 +19,11 @@
 
 <body>
     <?php
-        require_once '../../../includes/html-builder.php';
+        require '../../../includes/html-builder.php';
         echo get_topbar_html();
     ?>
     <div class="page-container">
         <?php
-            require_once '../../../includes/html-builder.php';
             echo get_leftbar_html("Games", "icons");
         ?>
         <div class="content">
@@ -33,7 +32,7 @@
             </div>
             <div class="input-outer-container">
                 <?php
-                    require_once "../../../includes/input-builder.php";
+                    require "../../../includes/input-builder.php";
                     get_icon_input_html("add");
                 ?>
             </div>

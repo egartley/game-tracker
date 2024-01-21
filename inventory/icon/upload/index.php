@@ -1,9 +1,12 @@
 <?php
 
-include_once '../../../includes/auth/check-auth.php';
+require '../../../includes/auth/check-auth.php';
 if (!$valid_auth) {
     exit();
 }
+
+require '../../../includes/db/db-connection.php';
+require '../../../includes/db/icons-table.php';
 
 if (isset($_FILES['iconfile'])) {
     // Adopted from https://www.w3schools.com/php/php_file_upload.asp
@@ -15,8 +18,6 @@ if (isset($_FILES['iconfile'])) {
 
     if (!$issues) {
         if (move_uploaded_file($uploaded_file['tmp_name'], $target_path)) {
-            require_once '../../../includes/db/db-connection.php';
-            require_once '../../../includes/db/icons-table.php';
             $connection = get_mysql_connection();
             verify_icons_table($connection);
             add_icon($connection, $uploaded_file['name']);
@@ -32,8 +33,6 @@ if (isset($_FILES['iconfile'])) {
     $files = array_filter($iconfiles['name']);
     $count = count($iconfiles['name']);
 
-    require_once '../../../includes/db/db-connection.php';
-    require_once '../../../includes/db/icons-table.php';
     $connection = get_mysql_connection();
     verify_icons_table($connection);
 

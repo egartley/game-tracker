@@ -1,5 +1,5 @@
 <?php
-    include_once '../../includes/auth/check-auth.php';
+    require '../../includes/auth/check-auth.php';
     if (!$valid_auth) {
         exit();
     }
@@ -11,7 +11,7 @@
 <head>
     <title>Manage Games</title>
     <?php
-        require_once "../../includes/header.php";
+        require "../../includes/header.php";
         get_header();
         get_stylesheet("listing.css");
         get_stylesheet("inventory.css");
@@ -21,12 +21,11 @@
 
 <body>
     <?php
-        require_once '../../includes/html-builder.php';
+        require '../../includes/html-builder.php';
         echo get_topbar_html();
     ?>
     <div class="page-container">
         <?php
-            require_once '../../includes/html-builder.php';
             echo get_leftbar_html("Games", "");
         ?>
         <div class="content">
@@ -45,7 +44,7 @@
             </div>
             <div class="game-list unified-container csv">
                 <?php
-                    require_once '../../includes/list-builder.php';
+                    require '../../includes/list-builder.php';
                     get_listing_html("csv", true);
                 ?>
             </div>
