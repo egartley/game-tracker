@@ -8,26 +8,22 @@ function verify_icons_table($connection): void
 
 function get_icon_row_by_id($connection, $id)
 {
-    include 'db-config.php';
-    return $connection->query('SELECT * FROM ' . $icons_table_name . ' WHERE id=' . $id . " LIMIT 1");
+    return $connection->query('SELECT * FROM ' . ICONS_TABLE_NAME . ' WHERE id=' . $id . " LIMIT 1");
 }
 
 function get_icons_table_rows($connection)
 {
-    include 'db-config.php';
-    return $connection->query('SELECT * FROM ' . $icons_table_name);
+    return $connection->query('SELECT * FROM ' . ICONS_TABLE_NAME);
 }
 
 function get_icon_exists($connection, $filename): bool
 {
-    include 'db-config.php';
-    return $connection->query('SELECT id FROM ' . $icons_table_name . " WHERE filename=\"" . $filename . "\"")->num_rows > 0;
+    return $connection->query('SELECT id FROM ' . ICONS_TABLE_NAME . " WHERE filename=\"" . $filename . "\"")->num_rows > 0;
 }
 
 function get_icon_add_query($connection, $filename): string
 {
-    include 'db-config.php';
-    return 'INSERT INTO ' . $icons_table_name . ' ' . $icons_table_columns . " VALUES (\"" . $filename . '");';
+    return 'INSERT INTO ' . ICONS_TABLE_NAME . ' ' . ICONS_TABLE_COLUMNS . " VALUES (\"" . $filename . '");';
 }
 
 function add_icon($connection, $filename)
@@ -41,12 +37,10 @@ function add_icon($connection, $filename)
 
 function delete_icon($connection, $id)
 {
-    include 'db-config.php';
-    
     $icondata = get_icon_row_by_id($connection, $id);
     unlink($_SERVER['DOCUMENT_ROOT'] . '/resources/png/icon/' . $icondata->fetch_assoc()['filename']);
     
-    $connection->query('UPDATE ' . $games_table_name . ' SET iconid=0 WHERE iconid=' . $id);
+    $connection->query('UPDATE ' . GAMES_TABLE_NAME . ' SET iconid=0 WHERE iconid=' . $id);
     
-    return $connection->query('DELETE FROM ' . $icons_table_name . " WHERE id=" . $id);
+    return $connection->query('DELETE FROM ' . ICONS_TABLE_NAME . " WHERE id=" . $id);
 }

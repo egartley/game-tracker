@@ -1,6 +1,8 @@
 <?php
 
 require_once 'icon.php';
+require_once 'db/db-connection.php';
+require_once 'db/icons-table.php';
 
 function build_icon_object($data): Icon
 {
@@ -9,9 +11,6 @@ function build_icon_object($data): Icon
 
 function get_all_icons(): array
 {
-    require_once 'db/db-connection.php';
-    require_once 'db/icons-table.php';
-
     $icons = array();
     $connection = get_mysql_connection();
     verify_icons_table($connection);

@@ -23,6 +23,7 @@ if (!isset($_POST["passinput"])) {
 
     echo '<button class="submit">Submit</button></form></div></div></div></body></html>';
 } else {
+    require '../includes/db/db-config.php';
     require '../includes/db/db-connection.php';
     require '../includes/db/editor-table.php';
 

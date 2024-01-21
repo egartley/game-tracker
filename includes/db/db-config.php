@@ -1,12 +1,11 @@
 <?php
 
-$games_table_name = "games";
-$icons_table_name = "icons";
-$tags_table_name = "tags";
-$editor_table_name = "editor";
+define('GAMES_TABLE_NAME', 'games');
+define('ICONS_TABLE_NAME', 'icons');
+define('TAGS_TABLE_NAME', 'tags');
+define('EDITOR_TABLE_NAME', 'editor');
 
-$games_table_schema = "
-id INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+define('GAMES_TABLE_SCHEMA', "id INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
 title VARCHAR(200) NOT NULL DEFAULT '',
 year INT(4) NOT NULL DEFAULT 0,
 platform VARCHAR(50) NOT NULL DEFAULT '',
@@ -20,21 +19,14 @@ dlc BOOLEAN NOT NULL DEFAULT 0,
 physical BOOLEAN NOT NULL DEFAULT 0,
 iconid INT(6) NOT NULL DEFAULT 0,
 notes VARCHAR(8192) NOT NULL DEFAULT '',
-tags VARCHAR(128) NOT NULL DEFAULT ''
-";
-$icons_table_schema = "
-id INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-filename VARCHAR(100) NOT NULL DEFAULT ''
-";
-$tags_table_schema = "
-id INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-text VARCHAR(128) NOT NULL DEFAULT ''
-";
-$editor_table_schema = "
-passhash VARCHAR(255) NOT NULL PRIMARY KEY
-";
+tags VARCHAR(128) NOT NULL DEFAULT ''");
+define('ICONS_TABLE_SCHEMA', "id INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+filename VARCHAR(100) NOT NULL DEFAULT ''");
+define('TAGS_TABLE_SCHEMA', "id INT(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+text VARCHAR(128) NOT NULL DEFAULT ''");
+define('EDITOR_TABLE_SCHEMA', "passhash VARCHAR(255) NOT NULL PRIMARY KEY");
 
-$icons_table_columns = "(filename)";
-$tags_table_columns = "(text)";
-$games_table_columns = "(title, year, platform, company, rating, hours, playthroughs, hundo, plat, dlc, physical, iconid, notes, tags)";
-$editor_table_columns = "(passhash)";
+define('GAMES_TABLE_COLUMNS', '(title, year, platform, company, rating, hours, playthroughs, hundo, plat, dlc, physical, iconid, notes, tags)');
+define('ICONS_TABLE_COLUMNS', '(filename)');
+define('TAGS_TABLE_COLUMNS', '(text)');
+define('EDITOR_TABLE_COLUMNS', '(passhash)');

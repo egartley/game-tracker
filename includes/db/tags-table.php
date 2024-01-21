@@ -8,36 +8,31 @@ function verify_tags_table($connection): void
 
 function get_tag_rows_by_ids($connection, $ids)
 {
-    include 'db-config.php';
     if ($ids == '') {
         // workaround for sql syntax error (id will never be -1, so it wont return any rows)
         $ids = "-1";
     }
-    return $connection->query('SELECT * FROM ' . $tags_table_name . ' WHERE id IN(' . $ids . ')');
+    return $connection->query('SELECT * FROM ' . TAGS_TABLE_NAME . ' WHERE id IN(' . $ids . ')');
 }
 
 function get_tag_row_by_id($connection, $id)
 {
-    include 'db-config.php';
-    return $connection->query('SELECT * FROM ' . $tags_table_name . ' WHERE id=' . $id . " LIMIT 1");
+    return $connection->query('SELECT * FROM ' . TAGS_TABLE_NAME . ' WHERE id=' . $id . " LIMIT 1");
 }
 
 function get_tags_table_rows($connection)
 {
-    include 'db-config.php';
-    return $connection->query('SELECT * FROM ' . $tags_table_name);
+    return $connection->query('SELECT * FROM ' . TAGS_TABLE_NAME);
 }
 
 function get_tag_exists($connection, $text): bool
 {
-    include 'db-config.php';
-    return $connection->query('SELECT id FROM ' . $tags_table_name . " WHERE text=\"" . $text . "\"")->num_rows > 0;
+    return $connection->query('SELECT id FROM ' . TAGS_TABLE_NAME . " WHERE text=\"" . $text . "\"")->num_rows > 0;
 }
 
 function get_tag_add_query($connection, $text): string
 {
-    include 'db-config.php';
-    return 'INSERT INTO ' . $tags_table_name . ' ' . $tags_table_columns . " VALUES (\"" . $text . '");';
+    return 'INSERT INTO ' . TAGS_TABLE_NAME . ' ' . TAGS_TABLE_COLUMNS . " VALUES (\"" . $text . '");';
 }
 
 function add_tag($connection, $text)
@@ -51,8 +46,7 @@ function add_tag($connection, $text)
 
 function delete_tag($connection, $id)
 {
-    include 'db-config.php';
-    include 'games-table.php';
+    require 'games-table.php';
     $gamerows = get_games_with_tag_by_id($connection, $id);
     if ($gamerows->num_rows > 0) {
         while ($row = $gamerows->fetch_assoc()) {
@@ -69,8 +63,8 @@ function delete_tag($connection, $id)
             if ($newtags !== '') {
                 $newtags = rtrim($newtags, ',');
             }
-            $connection->query('UPDATE ' . $games_table_name . ' SET tags="' . $newtags . '" WHERE id=' . $row['id']);
+            $connection->query('UPDATE ' . GAMES_TABLE_NAME . ' SET tags="' . $newtags . '" WHERE id=' . $row['id']);
         }
     }
-    return $connection->query('DELETE FROM ' . $tags_table_name . " WHERE id=" . $id);
+    return $connection->query('DELETE FROM ' . TAGS_TABLE_NAME . " WHERE id=" . $id);
 }

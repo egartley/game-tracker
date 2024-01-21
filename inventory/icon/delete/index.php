@@ -13,9 +13,10 @@ require '../../../includes/auth/check-auth.php';
 if (!$valid_auth) {
     exit();
 }
-
+require '../../../includes/db/db-config.php';
 require '../../../includes/db/db-connection.php';
 require '../../../includes/db/icons-table.php';
+
 $connection = get_mysql_connection();
 verify_icons_table($connection);
 

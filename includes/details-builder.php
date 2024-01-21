@@ -6,7 +6,9 @@ function get_details_html()
         echo '<p>ID is required.</p>';
         return;
     }
-    require_once '../includes/game-fetcher.php';
+    require 'game-fetcher.php';
+    require 'tag-fetcher.php';
+    
     $id = (int)preg_replace('/[^0-9]/', '', $_GET['id']);
     $game = get_game_by_id($id);
 
@@ -14,7 +16,6 @@ function get_details_html()
     if ($game->iconfile !== '') {
         $iconfile = $game->iconfile;
     }
-    require 'tag-fetcher.php';
     $gametags = get_game_tags($game);
 
     echo '<a href="/" class="back-link"><img src="/resources/png/back-arrow.png">Back to results</a>

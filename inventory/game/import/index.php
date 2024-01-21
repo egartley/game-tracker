@@ -3,6 +3,7 @@
     if (!$valid_auth) {
         exit();
     }
+    require '../../../includes/db/db-config.php';
 ?>
 
 <!DOCTYPE html>

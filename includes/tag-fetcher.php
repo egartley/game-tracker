@@ -1,6 +1,8 @@
 <?php
 
 require_once 'tag.php';
+require_once 'db/db-connection.php';
+require_once 'db/tags-table.php';
 
 function build_tag_object($data): Tag
 {
@@ -9,9 +11,6 @@ function build_tag_object($data): Tag
 
 function get_game_tags($game): array
 {
-    require_once 'db/db-connection.php';
-    require_once 'db/tags-table.php';
-
     $tags = array();
     $connection = get_mysql_connection();
     verify_tags_table($connection);
@@ -30,9 +29,6 @@ function get_game_tags($game): array
 
 function get_all_tags(): array
 {
-    require_once 'db/db-connection.php';
-    require_once 'db/tags-table.php';
-
     $tags = array();
     $connection = get_mysql_connection();
     verify_tags_table($connection);

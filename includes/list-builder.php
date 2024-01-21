@@ -66,7 +66,7 @@ function get_compact_listing_html($game): string
 
 function get_listing_html($type, $edit_link = false): void
 {
-    require_once 'game-fetcher.php';
+    require 'game-fetcher.php';
     $html = '';
     $all_games = get_all_games();
     if ($type == 'csv') {
@@ -105,7 +105,7 @@ function get_icon_grid_html($icon, $gameid)
 
 function get_icon_listing_html($type = 'default', $gameid = -1): void
 {
-    require_once 'icon-fetcher.php';
+    require 'icon-fetcher.php';
     $all_icons = get_all_icons();
     if ($type === 'default') {
         $html = '<table class="csv-table"><tr><th>ID</th><th>Image</th><th>File Name</th><th>Actions</th></tr>';
@@ -127,7 +127,7 @@ function get_icon_listing_html($type = 'default', $gameid = -1): void
 
 function get_tag_listing_html(): void
 {
-    require_once 'tag-fetcher.php';
+    require 'tag-fetcher.php';
     $all_tags = get_all_tags();
     $html = '<table class="csv-table"><tr><th>ID</th><th>Text</th><th>Actions</th></tr>';
     foreach ($all_tags as $tag) {

@@ -92,6 +92,7 @@ require '../../../includes/auth/check-auth.php';
 if (!$valid_auth) {
     exit();
 }
+require '../../../includes/db/db-config.php';
 
 if (isset($_POST['type'])) {
     $type = $_POST['type'];

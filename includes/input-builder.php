@@ -6,8 +6,9 @@ function get_input_html($type): void
         echo '<p>ID is required.</p>';
         return;
     }
-
+    
     require_once 'game.php';
+    require_once 'tag-fetcher.php';
     $id = 'new';
     $game = new Game();
     if ($type === 'edit') {
@@ -21,7 +22,6 @@ function get_input_html($type): void
         $iconid = (int)preg_replace('/[^0-9]/', '', $_GET['icon']);
         $iconurl = $_GET['file'];
     }
-    require 'tag-fetcher.php';
     $alltags = get_all_tags();
     $tagoptions = '<option value="none">(None)</option>';
     foreach ($alltags as $tag) {

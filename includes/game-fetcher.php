@@ -1,10 +1,12 @@
 <?php
 
 require_once 'game.php';
+require_once 'db/db-connection.php';
+require_once 'db/games-table.php';
+require_once 'db/icons-table.php';
 
 function get_icon_filename($connection, $iconid)
 {
-    require_once 'db/icons-table.php';
     verify_icons_table($connection);
     $row = get_icon_row_by_id($connection, $iconid);
     if ($row->num_rows == 0) {
@@ -37,9 +39,6 @@ function build_game_object($connection, $data, $id = -1): Game
 
 function get_game_by_id($id): Game
 {
-    require_once 'db/db-connection.php';
-    require_once 'db/games-table.php';
-
     $connection = get_mysql_connection();
     verify_games_table($connection);
     $result = get_game_row_by_id($connection, $id);
@@ -53,9 +52,6 @@ function get_game_by_id($id): Game
 
 function get_all_games(): array
 {
-    require_once 'db/db-connection.php';
-    require_once 'db/games-table.php';
-
     $games = array();
     $connection = get_mysql_connection();
     verify_games_table($connection);

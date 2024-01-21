@@ -1,3 +1,6 @@
+<?php
+    require_once 'includes/db/db-config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 

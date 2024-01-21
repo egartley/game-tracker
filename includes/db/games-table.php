@@ -8,36 +8,31 @@ function verify_games_table($connection): void
 
 function get_games_table_rows($connection)
 {
-    include 'db-config.php';
-    return $connection->query('SELECT * FROM ' . $games_table_name);
+    return $connection->query('SELECT * FROM ' . GAMES_TABLE_NAME);
 }
 
 function get_game_row_by_id($connection, $id)
 {
-    include 'db-config.php';
-    return $connection->query('SELECT * FROM ' . $games_table_name . ' WHERE id=' . $id . " LIMIT 1");
+    return $connection->query('SELECT * FROM ' . GAMES_TABLE_NAME . ' WHERE id=' . $id . " LIMIT 1");
 }
 
 function get_games_with_tag_by_id($connection, $tagid)
 {
-    include 'db-config.php';
     // X or X,* or *,X,* or *,X
     // only, first, nth, last
-    return $connection->query('SELECT * FROM ' . $games_table_name .
+    return $connection->query('SELECT * FROM ' . GAMES_TABLE_NAME .
             ' WHERE tags LIKE "' . $tagid . '" OR tags LIKE "' . $tagid . ',%" OR tags LIKE "%,' . $tagid . ',%" OR tags LIKE "%,' . $tagid . '"');
 }
 
 function get_game_exists($connection, $game): bool
 {
-    include 'db-config.php';
-    return $connection->query('SELECT id FROM ' . $games_table_name . " WHERE title=\"" . $game->title
+    return $connection->query('SELECT id FROM ' . GAMES_TABLE_NAME . " WHERE title=\"" . $game->title
             . "\" AND year=" . $game->year . " AND platform=\"" . $game->platform . "\"")->num_rows > 0;
 }
 
 function get_game_add_query($connection, $game): string
 {
-    include 'db-config.php';
-    $query = 'INSERT INTO ' . $games_table_name . ' ' . $games_table_columns . " VALUES (\"";
+    $query = 'INSERT INTO ' . GAMES_TABLE_NAME . ' ' . GAMES_TABLE_COLUMNS . " VALUES (\"";
     $query .= $game->title . "\", ";
     $query .= $game->year . ", \"";
     $query .= $game->platform . "\", \"";
@@ -67,15 +62,13 @@ function add_game($connection, $game)
 
 function delete_game($connection, $id)
 {
-    include 'db-config.php';
-    return $connection->query('DELETE FROM ' . $games_table_name . ' WHERE id=' . $id);
+    return $connection->query('DELETE FROM ' . GAMES_TABLE_NAME . ' WHERE id=' . $id);
 }
 
 function edit_game($connection, $game, $id)
 {
-    include 'db-config.php';
     if (get_game_row_by_id($connection, $id)->num_rows == 1) {
-        $query = 'UPDATE ' . $games_table_name . ' SET ';
+        $query = 'UPDATE ' . GAMES_TABLE_NAME . ' SET ';
         $query .= "title=\"" . $game->title . "\", ";
         $query .= 'year=' . $game->year . ', ';
         $query .= "platform=\"" . $game->platform . "\", ";
