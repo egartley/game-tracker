@@ -6,9 +6,22 @@ function verify_games_table($connection): void
     create_games_table($connection);
 }
 
-function get_games_table_rows($connection)
+function get_games_table_rows($connection, $limit = -1, $page = -1)
 {
-    return $connection->query('SELECT * FROM ' . GAMES_TABLE_NAME);
+    $query = 'SELECT * FROM ' . GAMES_TABLE_NAME;
+    if ($limit > -1 && $page == -1) {
+        $query .= ' LIMIT ' . $limit;
+    } else if ($limit > -1 && $page >= 0) {
+        $num_games = $connection->query('SELECT COUNT(*) FROM ' . GAMES_TABLE_NAME)->fetch_assoc()['COUNT(*)'];
+        $offset = $page * $limit;
+        // ensure page number not too big
+        if ($offset >= $num_games) {
+            // get the last n games
+            $offset = $num_games - $limit;
+        }
+        $query .= ' LIMIT ' . $offset . ',' . $limit;
+    }
+    return $connection->query($query);
 }
 
 function get_game_row_by_id($connection, $id)

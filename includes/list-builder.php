@@ -1,5 +1,14 @@
 <?php
 
+function get_sanitized_param_num($name): float
+{
+    if (isset($_GET[$name])) {
+        return (float)preg_replace('/[^0-9]/', '', $_GET[$name]);
+    } else {
+        return 0;
+    }
+}
+
 function get_icon_csv_listing_html($icon): string
 {
     $start = '<tr>';
@@ -68,7 +77,7 @@ function get_listing_html($type, $edit_link = false): void
 {
     require 'game-fetcher.php';
     $html = '';
-    $all_games = get_all_games();
+    $all_games = get_all_games(10, get_sanitized_param_num('p'));
     if ($type == 'csv') {
         $html = '<table class="csv-table"><tr>
             <th>Title</th><th>Year</th><th>Platform</th><th>Company</th><th>Rating</th>

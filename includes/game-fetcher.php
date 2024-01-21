@@ -50,12 +50,12 @@ function get_game_by_id($id): Game
     return $game;
 }
 
-function get_all_games(): array
+function get_all_games($limit = -1, $page = -1): array
 {
     $games = array();
     $connection = get_mysql_connection();
     verify_games_table($connection);
-    $rows = get_games_table_rows($connection);
+    $rows = get_games_table_rows($connection, $limit, $page);
     if ($rows->num_rows == 0) {
         return $games;
     }
