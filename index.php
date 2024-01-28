@@ -32,6 +32,9 @@
                     get_listing_html("compact");
                 ?>
             </div>
+            <?php
+                get_page_navigation_html('/');
+            ?>
         </div>
     </div>
 </body>

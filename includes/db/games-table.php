@@ -13,6 +13,7 @@ function get_games_table_rows($connection, $limit = -1, $page = -1)
         $query .= ' LIMIT ' . $limit;
     } else if ($limit > -1 && $page >= 0) {
         $num_games = $connection->query('SELECT COUNT(*) FROM ' . GAMES_TABLE_NAME)->fetch_assoc()['COUNT(*)'];
+        $_SESSION['game_count'] = $num_games;
         $offset = $page * $limit;
         // ensure page number not too big
         if ($offset >= $num_games) {

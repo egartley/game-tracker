@@ -49,6 +49,9 @@
                     get_listing_html("csv", true);
                 ?>
             </div>
+            <?php
+                get_page_navigation_html('/inventory/game/');
+            ?>
         </div>
     </div>
 </body>

@@ -1,11 +1,11 @@
 <?php
 
-function get_sanitized_param_num($name): float
+function get_sanitized_param_num($name, $default = 0): float
 {
     if (isset($_GET[$name])) {
         return (float)preg_replace('/[^0-9]/', '', $_GET[$name]);
     } else {
-        return 0;
+        return $default;
     }
 }
 
@@ -77,7 +77,7 @@ function get_listing_html($type, $edit_link = false): void
 {
     require 'game-fetcher.php';
     $html = '';
-    $all_games = get_all_games(10, get_sanitized_param_num('p'));
+    $all_games = get_all_games(get_sanitized_param_num('l', 10), get_sanitized_param_num('p', 0));
     if ($type == 'csv') {
         $html = '<table class="csv-table"><tr>
             <th>Title</th><th>Year</th><th>Platform</th><th>Company</th><th>Rating</th>
@@ -143,5 +143,61 @@ function get_tag_listing_html(): void
         $html .= get_tag_csv_listing_html($tag);
     }
     $html .= '</table>';
+    echo $html;
+}
+
+function get_page_navigation_html($url): void
+{
+    $page = get_sanitized_param_num('p', 0);
+    $limit = get_sanitized_param_num('l', 10);
+    $last_page = ($_SESSION['game_count'] - fmod($_SESSION['game_count'], $limit)) / $limit;
+
+    $html = '<div class="page-navigation"><span>';
+    if ($page - 1 >= 0) {
+        $html .= '<a href="' . $url . '?p=' . $page - 1 . '&l=' . $limit . '"><</a>';
+    } else {
+        $html .= '<';
+    }
+    $html .= '</span><span>';
+    if ($page <= 1) {
+        if ($page == 0) {
+            $html .= '1';
+        } else {
+            $html .= '<a href="' . $url . '?p=0&l=' . $limit . '">1</a>';
+        }
+        $html .= '</span><span>';
+        if ($page == 1) {
+            $html .= '2';
+        } else {
+            $html .= '<a href="' . $url . '?p=1&l=' . $limit . '">2</a>';
+        }
+        $html .= '</span><span>';
+        if ($page == 2) {
+            $html .= '3';
+        } else {
+            $html .= '<a href="' . $url . '?p=2&l=' . $limit . '">3</a>';
+        }
+    } else {
+        $html .= '<a href="' . $url . '?p=0&l=' . $limit . '">1</a>';
+        $html .= '</span><span>...</span><span>';
+        $html .= '<a href="' . $url . '?p=' . $page - 1 . '&l=' . $limit . '">' . $page . '</a>';
+        $html .= '</span><span>' . $page + 1;
+        if ($page < $last_page) {
+            $html .= '</span><span><a href="' . $url . '?p=' . $page + 1 . '&l=' . $limit . '">' . $page + 2 . '</a>';
+        }
+    }
+    $html .= '</span>';
+    if ($page + 1 < $last_page) {
+        $html .= '<span>...</span><span>';
+        $html .= '<a href="' . $url . '?p=' . $last_page . '&l=' . $limit . '">' . $last_page + 1 . '</a></span>';
+    }
+    $html .= '<span>';
+    if ($_SESSION['game_count'] >= ($page + 1) * $limit) {
+        $html .= '<a href="' . $url . '?p=' . $page + 1 . '&l=' . $limit . '">></a>';
+    } else {
+        $html .= '>';
+    }
+    $html .= '</span></div>';
+
     echo $html;
 }
