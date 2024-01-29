@@ -4,12 +4,12 @@ require_once 'tag.php';
 require_once 'db/db-connection.php';
 require_once 'db/tags-table.php';
 
-function build_tag_object($data): Tag
+function build_tag_object(array $data): Tag
 {
     return new Tag($data['id'], $data['text']);
 }
 
-function get_game_tags($game): array
+function get_game_tags(Game $game): array
 {
     $tags = array();
     $connection = get_mysql_connection();

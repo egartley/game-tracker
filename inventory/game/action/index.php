@@ -1,31 +1,30 @@
 <?php
 
-function get_sanitized_param($name): array|string|null
+function sanitize(string $data, string $pattern): string
 {
-    if (isset($_POST[$name])) {
-        return preg_replace('/[^A-Za-z0-9 \'",.!:-]/', '', $_POST[$name]);
-    } else {
-        return 'unknown';
-    }
+    return preg_replace($pattern, '', $data);
 }
 
-function sanitize_csv($data): array|string|null
+function get_sanitized_param(string $name): string
 {
-    return preg_replace('/[^A-Za-z0-9 \'",.!:-]/', '', $data);
+    $data = $_POST[$name] ?? 'unknown';
+    return sanitize($data, '/[^A-Za-z0-9 \'",.!:-]/');
 }
 
-function get_sanitized_param_num($name): float
+function sanitize_csv(string $data): string
 {
-    if (isset($_POST[$name])) {
-        return (float)preg_replace('/[^0-9.]/', '', $_POST[$name]);
-    } else {
-        return 0.0;
-    }
+    return sanitize($data, '/[^A-Za-z0-9 \'",.!:-]/');
 }
 
-function sanitize_csv_num($data): float
+function get_sanitized_param_num(string $name): float
 {
-    return (float)preg_replace('/[^0-9.]/', '', $data);
+    $data = $_POST[$name] ?? '0';
+    return (float)sanitize($data, '/[^0-9.]/');
+}
+
+function sanitize_csv_num(string $data): float
+{
+    return (float)sanitize($data, '/[^0-9.]/');
 }
 
 function build_game_object($title, $year, $platform, $company, $rating, $hours, $playthroughs,
@@ -70,64 +69,87 @@ function get_post_game(): Game
         $playthroughs, $hundo, $plat, $dlc, $physical, $iconid, $notes, $tags);
 }
 
-function get_csv_game($line): Game
+function get_csv_game(array $line): Game
 {
-    $title = sanitize_csv($line[0]);
-    $year = (int)sanitize_csv_num($line[2]);
-    $platform = sanitize_csv($line[3]);
-    $company = sanitize_csv($line[1]);
-    $rating = sanitize_csv_num($line[4]);
-    $hours = (int)sanitize_csv_num($line[8]);
-    $playthroughs = (int)sanitize_csv_num($line[9]);
-    $hundo = (int)sanitize_csv_num($line[5]) === 1;
-    $plat = (int)sanitize_csv_num($line[6]) === 1;
-    $dlc = (int)sanitize_csv_num($line[10]) === 1;
-    $physical = (int)sanitize_csv_num($line[11]) === 1;
+    [$title, $company, $year, $platform, $rating, $hundo, $plat, , $hours, $playthroughs, $dlc, $physical] = $line;
 
-    return build_game_object($title, $year, $platform, $company, $rating, $hours,
-        $playthroughs, $hundo, $plat, $dlc, $physical, 0, '', '');
+    return build_game_object(
+        sanitize_csv($title),
+        (int)sanitize_csv_num($year),
+        sanitize_csv($platform),
+        sanitize_csv($company),
+        sanitize_csv_num($rating),
+        (int)sanitize_csv_num($hours),
+        (int)sanitize_csv_num($playthroughs),
+        (int)sanitize_csv_num($hundo) === 1,
+        (int)sanitize_csv_num($plat) === 1,
+        (int)sanitize_csv_num($dlc) === 1,
+        (int)sanitize_csv_num($physical) === 1, 0,'','');
 }
 
-require '../../../includes/auth/check-auth.php';
-if (!$valid_auth) {
-    exit();
+function handle_new(mysqli $connection): void
+{
+    $game = get_post_game();
+    add_game($connection, $game);
 }
-require '../../../includes/db/db-config.php';
 
-if (isset($_POST['type'])) {
-    $type = $_POST['type'];
-
-    require '../../../includes/db/db-connection.php';
-    require '../../../includes/db/games-table.php';
-    require '../../../includes/game.php';
-    $connection = get_mysql_connection();
-    verify_games_table($connection);
-
-    if ($type === 'new') {
-        $game = get_post_game();
-        add_game($connection, $game);
-    } else if ($type === 'edit' && isset($_POST['id'])) {
+function handle_edit(mysqli $connection): void
+{
+    if (isset($_POST['id'])) {
         $game = get_post_game();
         edit_game($connection, $game, (int)get_sanitized_param_num('id'));
-    } else if ($type === 'import' && isset($_POST['csv'])) {
+    }
+}
+
+function handle_import(mysqli $connection): void
+{
+    if (isset($_POST['csv'])) {
         $lines = explode("\n", $_POST['csv']);
-        $array = array();
-        $games = array();
-        foreach ($lines as $line) {
-            $array[] = str_getcsv($line);
-        }
-        foreach ($array as $line) {
-            $game = get_csv_game($line);
-            $games[] = $game;
-        }
+        $games = array_map('get_csv_game', array_map('str_getcsv', $lines));
         foreach ($games as $game) {
             add_game($connection, $game);
         }
-    } else if ($type === 'delete' && isset($_POST['id'])) {
+    }
+}
+
+function handle_delete(mysqli $connection): void
+{
+    if (isset($_POST['id'])) {
         $id = (int)get_sanitized_param_num('id');
         delete_game($connection, $id);
     }
-
-    $connection->close();
-    header('Location: /inventory/game/');
 }
+
+require '../../../includes/auth/check-auth.php';
+require '../../../includes/db/db-config.php';
+require '../../../includes/db/db-connection.php';
+require '../../../includes/db/games-table.php';
+require '../../../includes/game.php';
+
+if (!$valid_auth) {
+    exit();
+}
+
+$connection = get_mysql_connection();
+verify_games_table($connection);
+
+if (isset($_POST['type'])) {
+    $type = $_POST['type'];
+    switch ($type) {
+        case 'new':
+            handle_new($connection);
+            break;
+        case 'edit':
+            handle_edit($connection);
+            break;
+        case 'import':
+            handle_import($connection);
+            break;
+        case 'delete':
+            handle_delete($connection);
+            break;
+    }
+}
+
+$connection->close();
+header('Location: /inventory/game/');

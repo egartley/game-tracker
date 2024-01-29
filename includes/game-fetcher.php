@@ -5,17 +5,17 @@ require_once 'db/db-connection.php';
 require_once 'db/games-table.php';
 require_once 'db/icons-table.php';
 
-function get_icon_filename($connection, $iconid)
+function get_icon_filename(mysqli $connection, int $iconid): string
 {
     verify_icons_table($connection);
     $row = get_icon_row_by_id($connection, $iconid);
-    if ($row->num_rows == 0) {
+    if ($row->num_rows === 0) {
         return '';
     }
     return $row->fetch_assoc()['filename'];
 }
 
-function build_game_object($connection, $data, $id = -1): Game
+function build_game_object(mysqli $connection, array $data, int $id = -1): Game
 {
     $game = new Game();
     $game->title = $data['title'];
@@ -37,7 +37,7 @@ function build_game_object($connection, $data, $id = -1): Game
     return $game;
 }
 
-function get_game_by_id($id): Game
+function get_game_by_id(int $id): Game
 {
     $connection = get_mysql_connection();
     verify_games_table($connection);
@@ -50,7 +50,7 @@ function get_game_by_id($id): Game
     return $game;
 }
 
-function get_all_games($limit = -1, $page = -1): array
+function get_all_games(int $limit = -1, int $page = -1): array
 {
     $games = array();
     $connection = get_mysql_connection();

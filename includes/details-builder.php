@@ -1,24 +1,41 @@
 <?php
 
-function get_details_html()
+require_once 'game-fetcher.php';
+require_once 'tag-fetcher.php';
+
+function get_url_game_id(): int
 {
-    if (!isset($_GET['id'])) {
-        echo '<p>ID is required.</p>';
-        return;
+    if (isset($_GET['id'])) {
+        return (int)preg_replace('/[^0-9]/', '', $_GET['id']);
     }
-    require 'game-fetcher.php';
-    require 'tag-fetcher.php';
-    
-    $id = (int)preg_replace('/[^0-9]/', '', $_GET['id']);
+    return -1;
+}
+
+function get_details_html(): string
+{
+    $id = get_url_game_id();
+    if ($id === -1) {
+        return '<p>ID is required.</p>';
+    }
     $game = get_game_by_id($id);
-
-    $iconfile = 'default-icon.png';
-    if ($game->iconfile !== '') {
-        $iconfile = $game->iconfile;
-    }
     $gametags = get_game_tags($game);
+    $iconfile = $game->iconfile !== '' ? $game->iconfile : 'default-icon.png';
 
-    echo '<a href="/" class="back-link"><img src="/resources/png/back-arrow.png">Back to results</a>
+    $details = [
+        'Title' => $game->title,
+        'Year' => $game->year,
+        'Company' => $game->company,
+        'Platform' => $game->platform,
+        'Rating' => $game->rating . ' stars',
+        'Times played' => $game->playthroughs,
+        'Total hours' => $game->hours,
+        '100% Completion' => $game->hundo ? 'true' : 'false',
+        'Platinum Trophy' => $game->plat ? 'true' : 'false',
+        'DLC' => $game->dlc ? 'true' : 'false',
+        'Physical Copy' => $game->physical ? 'true' : 'false'
+    ];
+
+    $html = '<a href="/" class="back-link"><img src="/resources/png/back-arrow.png">Back to results</a>
     <div class="flex details-highlight unified-container">
         <img id="game-icon" src="/resources/png/icon/' . $iconfile . '">
         <div class="details-highlight-inner">
@@ -29,56 +46,22 @@ function get_details_html()
             <div id="platform">' .  $game->platform . '</div>
             <div id="tags">' . $game->get_tags_html($gametags, false) . '</div>
         </div>
-    </div>';
-    echo '<div class="page-subtitle">Full Details</div>
-    <div class="divider"></div>
-    <div class="detail-container">
-        <span class="detail-title">Title: </span>
-        <span class="detail-value">' . $game->title . '</span>
     </div>
-    <div class="detail-container">
-        <span class="detail-title">Year: </span>
-        <span class="detail-value">' . $game->year . '</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">Company: </span>
-        <span class="detail-value">' . $game->company . '</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">Platform: </span>
-        <span class="detail-value">' . $game->platform . '</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">Rating: </span>
-        <span class="detail-value">' . $game->rating . ' stars</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">Times played: </span>
-        <span class="detail-value">' . $game->playthroughs . '</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">Total hours: </span>
-        <span class="detail-value">' . $game->hours . '</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">100% Completion: </span>
-        <span class="detail-value">' . ($game->hundo ? 'true' : 'false') . '</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">Platinum Trophy: </span>
-        <span class="detail-value">' . ($game->plat ? 'true' : 'false') . '</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">DLC: </span>
-        <span class="detail-value">' . ($game->dlc ? 'true' : 'false') . '</span>
-    </div>
-    <div class="detail-container">
-        <span class="detail-title">Physical Copy: </span>
-        <span class="detail-value">' . ($game->physical ? 'true' : 'false') . '</span>
-    </div>';
-    if ($game->notes !== '') {
-        echo '<div class="page-subtitle" style="margin-top:24px">Notes</div>
-    <div class="divider"></div>
-    <p>' . $game->notes . '</p>';
+    <div class="page-subtitle">Full Details</div>
+    <div class="divider"></div>';
+
+    foreach ($details as $title => $value) {
+        $html .= '<div class="detail-container">
+            <span class="detail-title">' . $title . ': </span>
+            <span class="detail-value">' . $value . '</span>
+        </div>';
     }
+
+    if ($game->notes !== '') {
+        $html .= '<div class="page-subtitle" style="margin-top:24px">Notes</div>
+        <div class="divider"></div>
+        <p>' . $game->notes . '</p>';
+    }
+
+    return $html;
 }

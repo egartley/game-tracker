@@ -19,40 +19,38 @@ class Game
     public string $notes = '';
     public string $tags = '';
 
-    function get_rating_html(): string
+    private const FULL_STAR_IMG = '<img src="/resources/png/sf.png">';
+    private const HALF_STAR_IMG = '<img src="/resources/png/sh.png">';
+    private const EMPTY_STAR_IMG = '<img src="/resources/png/se.png">';
+
+    public function get_rating_html(): string
     {
         $full_stars = intdiv($this->rating, 1);
         $has_half = $this->rating != (float)$full_stars;
         $empties = 5 - ceil($this->rating);
 
-        $content = str_repeat('<img src="/resources/png/sf.png">', $full_stars);
+        $content = str_repeat(self::FULL_STAR_IMG, $full_stars);
         if ($has_half) {
-            $content .= '<img src="/resources/png/sh.png">';
+            $content .= self::HALF_STAR_IMG;
         }
         if ($empties > 0) {
-            $content .= str_repeat('<img src="/resources/png/se.png">', $empties);
+            $content .= str_repeat(self::EMPTY_STAR_IMG, $empties);
         }
 
         return $content;
     }
 
-    function get_tags_html($alltags, $deleteable): string
+    public function get_tags_html(array $alltags, bool $deleteable): string
     {
         if ($this->tags == '') {
             return '';
         }
         $content = '';
-        $mytags = array($this->tags);
-        if (str_contains($this->tags, ",")) {
-            $mytags = explode(",", $this->tags);
-        }
+        $mytags = str_contains($this->tags, ",") ? explode(",", $this->tags) : [$this->tags];
         foreach ($alltags as $tag) {
             if (in_array($tag->id, $mytags)) {
-                $del = '<span class="tag-delete-x" tagval="' . $tag->text . '" tagid="' . $tag->id . '">X</span>';
-                if (!$deleteable) {
-                    $del = '';
-                }
-                $content .= '<span class="game-tag" id="tag-' . $tag->text . '">' . $tag->text . $del . '</span>';
+                $del = $deleteable ? sprintf('<span class="tag-delete-x" tagval="%s" tagid="%s">X</span>', $tag->text, $tag->id) : '';
+                $content .= sprintf('<span class="game-tag" id="tag-%s">%s%s</span>', $tag->text, $tag->text, $del);
             }
         }
         return $content;

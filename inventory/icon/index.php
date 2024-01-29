@@ -42,7 +42,7 @@
             <div class="game-list unified-container csv">
                 <?php
                     require '../../includes/list-builder.php';
-                    get_icon_listing_html();
+                    echo get_icon_listing_html();
                 ?>
             </div>
         </div>

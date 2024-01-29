@@ -1,32 +1,58 @@
 <?php
 
-function get_input_html($type): void
+require_once 'game.php';
+require_once 'game-fetcher.php';
+require_once 'tag-fetcher.php';
+
+function get_input_game_id(string $type)
 {
-    if ($type !== 'new' && !isset($_GET['id'])) {
-        echo '<p>ID is required.</p>';
-        return;
+    if ($type === 'edit' && isset($_GET['id'])) {
+        return (int)preg_replace('/[^0-9]/', '', $_GET['id']);
     }
-    
-    require_once 'game.php';
-    require_once 'tag-fetcher.php';
-    $id = 'new';
-    $game = new Game();
-    if ($type === 'edit') {
-        require_once 'game-fetcher.php';
-        $id = (int)preg_replace('/[^0-9]/', '', $_GET['id']);
-        $game = get_game_by_id($id);
+    return 'new';
+}
+
+function get_input_game(string $type, string $id): Game
+{
+    if ($id === 'new') {
+        return new Game();
     }
-    $iconurl = $game->iconfile === "" ? 'default-icon.png' : $game->iconfile;
-    $iconid = $game->iconid;
+    return get_game_by_id((int)$id);
+}
+
+function get_input_icon_file(Game $game): string
+{
     if (isset($_GET['icon']) && isset($_GET['file'])) {
-        $iconid = (int)preg_replace('/[^0-9]/', '', $_GET['icon']);
-        $iconurl = $_GET['file'];
+        return $_GET['file'];
     }
+    return $game->iconfile === "" ? 'default-icon.png' : $game->iconfile;
+}
+
+function get_input_icon_id(Game $game): int
+{
+    if (isset($_GET['icon'])) {
+        return (int)preg_replace('/[^0-9]/', '', $_GET['icon']);
+    }
+    return $game->iconid;
+}
+
+function input_get_tag_options(): string
+{
     $alltags = get_all_tags();
     $tagoptions = '<option value="none">(None)</option>';
     foreach ($alltags as $tag) {
-        $tagoptions .= '<option value="' . $tag->text . ',' . $tag->id . '">' . $tag->text . '</option>';
+        $tagoptions .= '<option value="' . htmlspecialchars($tag->text) . ',' . $tag->id . '">' . htmlspecialchars($tag->text) . '</option>';
     }
+    return $tagoptions;
+}
+
+function get_input_html(string $type): void
+{
+    $id = get_input_game_id($type);
+    $game = get_input_game($type, $id);
+    $iconfile = get_input_icon_file($game);
+    $iconid = get_input_icon_id($game);
+    $tagoptions = input_get_tag_options();
     $gametags = get_game_tags($game);
 
     echo '<form action="/inventory/game/action/index.php" method="post" enctype="multipart/form-data" class="flex col">
@@ -42,7 +68,7 @@ function get_input_html($type): void
 
         <div class="input-container flex">
             <div class="icon-picker-container flex col" style="margin-right:24px">
-                <img id="icon-picker-img" src="/resources/png/icon/' . $iconurl . '">
+                <img id="icon-picker-img" src="/resources/png/icon/' . $iconfile . '">
                 <div class="flex" style="justify-content:center;margin-top:8px">
                     <button type="button" style="margin-right:12px" onclick="window.location.href=\'/inventory/icon/pick/?game=' . $id . '\'">Pick...</button>
                     <button type="button" onclick="$(\'input#actualiconid\').val(\'0\');
@@ -119,7 +145,7 @@ function get_input_html($type): void
     }
 }
 
-function get_icon_input_html($type): void
+function get_icon_input_html(): void
 {
     echo '<div class="input-container">
         <form action="/inventory/icon/upload/index.php" method="post" enctype="multipart/form-data">

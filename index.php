@@ -29,7 +29,7 @@
             <div class="game-list unified-container compact">
                 <?php
                     require 'includes/list-builder.php';
-                    get_listing_html("compact");
+                    echo get_listing_html("compact");
                 ?>
             </div>
             <?php

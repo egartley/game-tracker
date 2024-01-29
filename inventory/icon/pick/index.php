@@ -38,7 +38,7 @@
                     if (isset($_GET['game'])) {
                         $id = $_GET['game'];
                     }
-                    get_icon_listing_html('grid', $id);
+                    echo get_icon_listing_html('grid', $id);
                 ?>
             </div>
         </div>

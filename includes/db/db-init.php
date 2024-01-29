@@ -16,20 +16,20 @@ function create_db_table($connection, $name, $schema): bool
 
 function create_games_table($connection): bool
 {
-    return create_db_table($connection, GAMES_TABLE_NAME, GAMES_TABLE_SCHEMA);
+    return create_db_table($connection, GAMES_TABLE['NAME'], GAMES_TABLE['SCHEMA']);
 }
 
 function create_icons_table($connection): bool
 {
-    return create_db_table($connection, ICONS_TABLE_NAME, ICONS_TABLE_SCHEMA);
+    return create_db_table($connection, ICONS_TABLE['NAME'], ICONS_TABLE['SCHEMA']);
 }
 
 function create_tags_table($connection): bool
 {
-    return create_db_table($connection, TAGS_TABLE_NAME, TAGS_TABLE_SCHEMA);
+    return create_db_table($connection, TAGS_TABLE['NAME'], TAGS_TABLE['SCHEMA']);
 }
 
 function create_editor_table($connection): bool
 {
-    return create_db_table($connection, EDITOR_TABLE_NAME, EDITOR_TABLE_SCHEMA);
+    return create_db_table($connection, EDITOR_TABLE['NAME'], EDITOR_TABLE['SCHEMA']);
 }

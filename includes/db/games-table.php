@@ -1,18 +1,18 @@
 <?php
 
-function verify_games_table($connection): void
+function verify_games_table(mysqli $connection): void
 {
     require_once 'db-init.php';
     create_games_table($connection);
 }
 
-function get_games_table_rows($connection, $limit = -1, $page = -1)
+function get_games_table_rows(mysqli $connection, int $limit = -1, int $page = -1)
 {
-    $query = 'SELECT * FROM ' . GAMES_TABLE_NAME;
+    $query = 'SELECT * FROM ' . GAMES_TABLE['NAME'];
     if ($limit > -1 && $page == -1) {
         $query .= ' LIMIT ' . $limit;
     } else if ($limit > -1 && $page >= 0) {
-        $num_games = $connection->query('SELECT COUNT(*) FROM ' . GAMES_TABLE_NAME)->fetch_assoc()['COUNT(*)'];
+        $num_games = $connection->query('SELECT COUNT(*) FROM ' . GAMES_TABLE['NAME'])->fetch_assoc()['COUNT(*)'];
         $_SESSION['game_count'] = $num_games;
         $offset = $page * $limit;
         // ensure page number not too big
@@ -25,28 +25,28 @@ function get_games_table_rows($connection, $limit = -1, $page = -1)
     return $connection->query($query);
 }
 
-function get_game_row_by_id($connection, $id)
+function get_game_row_by_id(mysqli $connection, int $id)
 {
-    return $connection->query('SELECT * FROM ' . GAMES_TABLE_NAME . ' WHERE id=' . $id . " LIMIT 1");
+    return $connection->query('SELECT * FROM ' . GAMES_TABLE['NAME'] . ' WHERE id=' . $id . " LIMIT 1");
 }
 
-function get_games_with_tag_by_id($connection, $tagid)
+function get_games_with_tag_by_id(mysqli $connection, int $tagid)
 {
     // X or X,* or *,X,* or *,X
     // only, first, nth, last
-    return $connection->query('SELECT * FROM ' . GAMES_TABLE_NAME .
+    return $connection->query('SELECT * FROM ' . GAMES_TABLE['NAME'] .
             ' WHERE tags LIKE "' . $tagid . '" OR tags LIKE "' . $tagid . ',%" OR tags LIKE "%,' . $tagid . ',%" OR tags LIKE "%,' . $tagid . '"');
 }
 
-function get_game_exists($connection, $game): bool
+function get_game_exists(mysqli $connection, Game $game): bool
 {
-    return $connection->query('SELECT id FROM ' . GAMES_TABLE_NAME . " WHERE title=\"" . $game->title
+    return $connection->query('SELECT id FROM ' . GAMES_TABLE['NAME'] . " WHERE title=\"" . $game->title
             . "\" AND year=" . $game->year . " AND platform=\"" . $game->platform . "\"")->num_rows > 0;
 }
 
-function get_game_add_query($connection, $game): string
+function get_game_add_query(mysqli $connection, Game $game): string
 {
-    $query = 'INSERT INTO ' . GAMES_TABLE_NAME . ' ' . GAMES_TABLE_COLUMNS . " VALUES (\"";
+    $query = 'INSERT INTO ' . GAMES_TABLE['NAME'] . ' ' . GAMES_TABLE['COLUMNS'] . " VALUES (\"";
     $query .= $game->title . "\", ";
     $query .= $game->year . ", \"";
     $query .= $game->platform . "\", \"";
@@ -64,7 +64,7 @@ function get_game_add_query($connection, $game): string
     return $query;
 }
 
-function add_game($connection, $game)
+function add_game(mysqli $connection, Game $game)
 {
     if (get_game_exists($connection, $game) === false) {
         $query = get_game_add_query($connection, $game);
@@ -74,15 +74,15 @@ function add_game($connection, $game)
     }
 }
 
-function delete_game($connection, $id)
+function delete_game(mysqli $connection, $id)
 {
-    return $connection->query('DELETE FROM ' . GAMES_TABLE_NAME . ' WHERE id=' . $id);
+    return $connection->query('DELETE FROM ' . GAMES_TABLE['NAME'] . ' WHERE id=' . $id);
 }
 
-function edit_game($connection, $game, $id)
+function edit_game(mysqli $connection, $game, $id)
 {
     if (get_game_row_by_id($connection, $id)->num_rows == 1) {
-        $query = 'UPDATE ' . GAMES_TABLE_NAME . ' SET ';
+        $query = 'UPDATE ' . GAMES_TABLE['NAME'] . ' SET ';
         $query .= "title=\"" . $game->title . "\", ";
         $query .= 'year=' . $game->year . ', ';
         $query .= "platform=\"" . $game->platform . "\", ";

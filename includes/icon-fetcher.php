@@ -4,7 +4,7 @@ require_once 'icon.php';
 require_once 'db/db-connection.php';
 require_once 'db/icons-table.php';
 
-function build_icon_object($data): Icon
+function build_icon_object(array $data): Icon
 {
     return new Icon($data['id'], $data['filename']);
 }

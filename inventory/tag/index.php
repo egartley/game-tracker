@@ -46,7 +46,7 @@
             <div class="game-list unified-container csv">
                 <?php
                     require '../../includes/list-builder.php';
-                    get_tag_listing_html();
+                    echo get_tag_listing_html();
                 ?>
             </div>
         </div>

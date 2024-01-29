@@ -1,84 +1,82 @@
 <?php
 
-function get_subsidelink_html($name, $is_active, $path)
+function get_subsidelink_html(string $name, bool $is_active, string $path): string
 {
-    $html = '<a class="link-ignore sub-side-link-href" href="' . $path . '"><div class="sub-side-link flex center-items';
-    if ($is_active) {
-        $html .= ' sub-side-link-active';
-    }
-    $html .= '"><span>' . $name . '</span></div></a>';
+    $activeClass = $is_active ? ' sub-side-link-active' : '';
+    $html = sprintf(
+        '<a class="link-ignore sub-side-link-href" href="%s"><div class="sub-side-link flex center-items%s"><span>%s</span></div></a>',
+        $path,
+        $activeClass,
+        $name
+    );
     return $html;
 }
 
-function get_sidelink_html($name, $is_active, $loggedin)
+function get_sidelink_html(string $name, bool $is_active, bool $loggedin): string
 {
-    $html = '<a class="link-ignore side-link-href" href="';
-    if ($loggedin) {
-        $html .= '/inventory/game';
-    } else {
-        $html .= '/';
-    }
-    $html .= '"><div class="side-link flex center-items';
-    if ($is_active) {
-        $html .= ' side-link-active';
-    }
-    $html .= '"><img src="/resources/png/side-link-' . strtolower($name);
-    if ($is_active) {
-        $html .= '-active';
-    }
-    $html .= '.png"><span>' . $name . '</span></div></a>';
+    $href = $loggedin ? '/inventory/game' : '/';
+    $activeClass = $is_active ? ' side-link-active' : '';
+    $activeSuffix = $is_active ? '-active' : '';
+
+    $html = sprintf(
+        '<a class="link-ignore side-link-href" href="%s">
+        <div class="side-link flex center-items%s">
+        <img src="/resources/png/side-link-%s%s.png"><span>%s</span>
+        </div></a>',
+        $href,
+        $activeClass,
+        strtolower($name),
+        $activeSuffix,
+        $name
+    );
+
     return $html;
 }
 
-function get_leftbar_html($active_sidelink, $active_subsidelink)
+function get_leftbar_html(string $active_sidelink, string $active_subsidelink): string
 {
-    $html = '<div class="leftbar"><div class="side-link-container flex col">';
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    $loggedin = isset($_SESSION['validauth']) && $_SESSION['validauth'] === 'yes';
-    $sidelinks = array('Games');
-    $subsidelinks_games = array(array('Icons', '/inventory/icon'), array('Tags', '/inventory/tag'));
+    $isLoggedIn = isset($_SESSION['validauth']) && $_SESSION['validauth'] === 'yes';
+    $sidelinks = ['Games'];
+    $subsidelinks_games = [['Icons', '/inventory/icon'], ['Tags', '/inventory/tag']];
+
+    $html = '<div class="leftbar"><div class="side-link-container flex col">';
     foreach ($sidelinks as $sidelink) {
-        $html .= get_sidelink_html($sidelink, strtolower($sidelink) === strtolower($active_sidelink), $loggedin);
-        if ($loggedin && $sidelink === 'Games') {
+        $isActiveSidelink = strtolower($sidelink) === strtolower($active_sidelink);
+        $html .= get_sidelink_html($sidelink, $isActiveSidelink, $isLoggedIn);
+        if ($isLoggedIn && $sidelink === 'Games') {
             foreach ($subsidelinks_games as $sub) {
-                $html .= get_subsidelink_html($sub[0], strtolower($sub[0]) === strtolower($active_subsidelink), $sub[1]);
+                $isActiveSubsidelink = strtolower($sub[0]) === strtolower($active_subsidelink);
+                $html .= get_subsidelink_html($sub[0], $isActiveSubsidelink, $sub[1]);
             }
         }
     }
     $html .= '</div></div>';
+
     return $html;
 }
 
-function get_topbar_html()
+function get_topbar_html(): string
 {
-    $html = '<div class="topbar unified-container"><a class="link-ignore" id="topbar-title" href="/">Game Tracker</a>';
-
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-    $loggedin = isset($_SESSION['validauth']) && $_SESSION['validauth'] === 'yes';
+    $isLoggedIn = isset($_SESSION['validauth']) && $_SESSION['validauth'] === 'yes';
+    $lockStatus = $isLoggedIn ? 'unlock' : 'lock';
+    $loginStatus = $isLoggedIn ? 'logout' : 'login';
+    $logText = $isLoggedIn ? 'out' : 'in';
 
-    $html .= '<span class="flex center-items" id="editor-login"><img src="/resources/png/';
-    if ($loggedin) {
-        $html .= 'unlock';
-    } else {
-        $html .= 'lock';
-    }
-    $html .= '.png"><span><a href="/';
-    if ($loggedin) {
-        $html .= 'logout';
-    } else {
-        $html .= 'login';
-    }
-    $html .= '">Log ';
-    if ($loggedin) {
-        $html .= 'out';
-    } else {
-        $html .= 'in';
-    }
-    $html .= '</a></span></span></div>';
+    $html = sprintf(
+        '<div class="topbar unified-container"><a id="topbar-title" href="/">Game Tracker</a>
+        <span class="flex center-items" id="editor-login">
+        <img src="/resources/png/%s.png">
+        <span><a href="/%s">Log %s</a></span></span></div>',
+        $lockStatus,
+        $loginStatus,
+        $logText
+    );
 
     return $html;
 }

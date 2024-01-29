@@ -25,7 +25,7 @@
         <div class="content">
             <?php
                 require "../includes/details-builder.php";
-                get_details_html();
+                echo get_details_html();
             ?>
         </div>
     </div>
