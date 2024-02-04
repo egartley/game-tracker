@@ -75,9 +75,11 @@ function get_compact_listing_html($game): string
     $rating = $game->get_rating_html();
     $year = htmlspecialchars($game->year);
     $platform = htmlspecialchars($game->platform);
+    $returnPage = get_sanitized_param_num('p', 0);
+    $returnLimit = get_sanitized_param_num('l', 10);
 
     $html = <<<HTML
-<div class="game-listing compact" onclick="window.location.href='/game/?id={$id}'">
+<div class="game-listing compact" onclick="window.location.href='/game/?id={$id}&p={$returnPage}&l={$returnLimit}'">
     <div class="game-icon">
         <img src="/resources/png/icon/{$iconfile}">
     </div>
@@ -207,6 +209,17 @@ function get_page_navigation_html($url): void
 
     // Last page link
     $html .= '<span>' . ($page < $last_page ? '<a href="' . $url . '?p=' . $last_page . '&l=' . $limit . '">Last</a>' : 'Last') . '</span>';
+
+    $html .= '
+    <span>
+        <select name="resultnumdropdown" id="resultnumdropdown">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="35">35</option>
+            <option value="50">50</option>
+        </select>
+        <span style="font-size:13px">Results per page</span>
+    </span>';
 
     $html .= '</div>';
 

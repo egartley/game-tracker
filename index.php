@@ -10,6 +10,7 @@
         require 'includes/header.php';
         get_header();
         get_stylesheet("listing.css");
+        get_script("listing.js");
     ?>
 </head>
 

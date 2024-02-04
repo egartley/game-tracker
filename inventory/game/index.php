@@ -16,6 +16,7 @@
         get_header();
         get_stylesheet("listing.css");
         get_stylesheet("inventory.css");
+        get_script("listing.js");
         get_script("inventory.js");
     ?>
 </head>

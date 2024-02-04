@@ -3,6 +3,12 @@
 require_once 'game-fetcher.php';
 require_once 'tag-fetcher.php';
 
+function get_sanitized_param_num($name, $default = 0): float
+{
+    $param = $_GET[$name] ?? $default;
+    return (float)preg_replace('/[^0-9]/', '', $param);
+}
+
 function get_url_game_id(): int
 {
     if (isset($_GET['id'])) {
@@ -35,7 +41,10 @@ function get_details_html(): string
         'Physical Copy' => $game->physical ? 'true' : 'false'
     ];
 
-    $html = '<a href="/" class="back-link"><img src="/resources/png/back-arrow.png">Back to results</a>
+    $html = '
+    <a href="/?p=' . get_sanitized_param_num('p', 0) . '&l=' . get_sanitized_param_num('l', 10) . '" class="back-link">
+        <img src="/resources/png/back-arrow.png">Back to results
+    </a>
     <div class="flex details-highlight unified-container">
         <img id="game-icon" src="/resources/png/icon/' . $iconfile . '">
         <div class="details-highlight-inner">
