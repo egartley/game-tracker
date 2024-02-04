@@ -9,12 +9,12 @@ function build_icon_object(array $data): Icon
     return new Icon($data['id'], $data['filename']);
 }
 
-function get_all_icons(): array
+function get_all_icons(int $limit = -1, int $page = -1): array
 {
     $icons = array();
     $connection = get_mysql_connection();
     verify_icons_table($connection);
-    $rows = get_icons_table_rows($connection);
+    $rows = get_icons_table_rows($connection, $limit, $page);
     $connection->close();
 
     if ($rows->num_rows == 0) {

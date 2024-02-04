@@ -11,9 +11,23 @@ function get_icon_row_by_id(mysqli $connection, $id)
     return $connection->query('SELECT * FROM ' . ICONS_TABLE['NAME'] . ' WHERE id=' . $id . " LIMIT 1");
 }
 
-function get_icons_table_rows(mysqli $connection)
+function get_icons_table_rows(mysqli $connection, int $limit = -1, int $page = -1)
 {
-    return $connection->query('SELECT * FROM ' . ICONS_TABLE['NAME']);
+    $query = 'SELECT * FROM ' . ICONS_TABLE['NAME'];
+    if ($limit > -1 && $page == -1) {
+        $query .= ' LIMIT ' . $limit;
+    } else if ($limit > -1 && $page >= 0) {
+        $num_icons = $connection->query('SELECT COUNT(*) FROM ' . ICONS_TABLE['NAME'])->fetch_assoc()['COUNT(*)'];
+        $_SESSION['icon_count'] = $num_icons;
+        $offset = $page * $limit;
+        // ensure page number not too big
+        if ($offset >= $num_icons) {
+            // get the last n icons
+            $offset = $num_icons - $limit;
+        }
+        $query .= ' LIMIT ' . $offset . ',' . $limit;
+    }
+    return $connection->query($query);
 }
 
 function get_icon_exists(mysqli $connection, string $filename): bool

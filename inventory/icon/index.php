@@ -16,6 +16,7 @@
         get_header();
         get_stylesheet("listing.css");
         get_stylesheet("inventory.css");
+        get_script("listing.js");
         get_script("inventory.js");
     ?>
 </head>
@@ -45,6 +46,9 @@
                     echo get_icon_listing_html();
                 ?>
             </div>
+            <?php
+                get_page_navigation_html('/inventory/icon/');
+            ?>
         </div>
     </div>
 </body>
