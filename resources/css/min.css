@@ -189,3 +189,16 @@ span.tag-delete-x {
 span.tag-delete-x:hover {
     cursor: pointer
 }
+
+div.meta-container {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 12px;
+    margin-left: 12px;
+    color: #939393;
+    font-size: 14px
+}
+
+div.meta-container > :not(:last-child) {
+    margin-bottom: 4px
+}

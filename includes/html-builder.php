@@ -42,7 +42,7 @@ function get_leftbar_html(string $active_sidelink, string $active_subsidelink): 
     $sidelinks = ['Games'];
     $subsidelinks_games = [['Icons', '/inventory/icon'], ['Tags', '/inventory/tag']];
 
-    $html = '<div class="leftbar"><div class="side-link-container flex col">';
+    $html = '<div class="leftbar flex col"><div class="side-link-container flex col">';
     foreach ($sidelinks as $sidelink) {
         $isActiveSidelink = strtolower($sidelink) === strtolower($active_sidelink);
         $html .= get_sidelink_html($sidelink, $isActiveSidelink, $isLoggedIn);
@@ -53,7 +53,14 @@ function get_leftbar_html(string $active_sidelink, string $active_subsidelink): 
             }
         }
     }
-    $html .= '</div></div>';
+    $html .= '</div>';
+
+    $html .= '<div class="meta-container flex col">
+            <a href="https://github.com/egartley/game-tracker/releases">Release v0.5.2</a>
+            <a href="https://github.com/egartley/game-tracker/blob/master/LICENSE">MIT License</a>
+            <span>' . $_SERVER['HTTP_HOST'] . '</span>
+        </div>
+    </div>';
 
     return $html;
 }
