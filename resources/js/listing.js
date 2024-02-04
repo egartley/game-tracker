@@ -9,6 +9,8 @@ $(document).ready(function() {
     dropdown.change(function () {
         const newLimit = $(this).val();
         const url = new URL(window.location);
-        window.location.href = `${url.origin}${url.pathname}?l=${newLimit}`;
+        url.searchParams.set('l', newLimit);
+        url.searchParams.set('p', 0);
+        window.location.href = url.toString();
     });
 });

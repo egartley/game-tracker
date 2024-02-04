@@ -236,15 +236,18 @@ function get_page_navigation_html_icon($url): void
     $html = '<div class="page-navigation">';
 
     // First page link
-    $html .= '<span>' . ($page > 0 ? '<a href="' . $url . '?p=0&l=' . $limit . '">First</a>' : 'First') . '</span>';
+    $_GET['p'] = 0;
+    $html .= '<span>' . ($page > 0 ? '<a href="' . $url . '?' . http_build_query($_GET) . '">First</a>' : 'First') . '</span>';
 
     // Page numbers
     for ($i = max(0, $page - 1); $i <= min($last_page, $page + 1); $i++) {
-        $html .= '<span>' . ($i == $page ? $i + 1 : '<a href="' . $url . '?p=' . $i . '&l=' . $limit . '">' . ($i + 1) . '</a>') . '</span>';
+        $_GET['p'] = $i;
+        $html .= '<span>' . ($i == $page ? $i + 1 : '<a href="' . $url . '?' . http_build_query($_GET) . '">' . ($i + 1) . '</a>') . '</span>';
     }
 
     // Last page link
-    $html .= '<span>' . ($page < $last_page ? '<a href="' . $url . '?p=' . $last_page . '&l=' . $limit . '">Last</a>' : 'Last') . '</span>';
+    $_GET['p'] = $last_page;
+    $html .= '<span>' . ($page < $last_page ? '<a href="' . $url . '?' . http_build_query($_GET) . '">Last</a>' : 'Last') . '</span>';
 
     $html .= '
     <span>

@@ -15,6 +15,7 @@
         get_header();
         get_stylesheet("listing.css");
         get_stylesheet("inventory.css");
+        get_script("listing.js");
     ?>
 </head>
 
@@ -41,6 +42,9 @@
                     echo get_icon_listing_html('grid', $id);
                 ?>
             </div>
+            <?php
+                get_page_navigation_html_icon('/inventory/icon/pick/');
+            ?>
         </div>
     </div>
 </body>
